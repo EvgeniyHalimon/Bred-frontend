@@ -1,13 +1,18 @@
 import { defineStore } from 'pinia';
 import type { IArticle } from './shared/types';
 
-export const useArticleStore = defineStore('articles', {
-  state: () => ({ articles: [] as IArticle[] }),
+export const useArticleStore = defineStore({
+  id: 'articles',
+  state: () => {
+    return {
+      articles: [] as IArticle[]
+    };
+  },
   getters: {
-    articles: (state) => state.articles
+    getArticles: (state) => state.articles
   },
   actions: {
-    increment(articles: IArticle[]) {
+    setArticles(articles: IArticle[]) {
       this.articles = articles;
     }
   }
