@@ -5,8 +5,12 @@ import { RouterLink, RouterView } from 'vue-router';
 <template>
   <header>
     <div>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
+      <nav class="flex justify-between">
+        <div>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/articles">Articles</RouterLink>
+        </div>
+        <RouterLink to="/auth">Auth</RouterLink>
       </nav>
     </div>
   </header>
