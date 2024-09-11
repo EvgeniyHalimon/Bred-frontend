@@ -1,5 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const inputType = ref('password');
+</script>
 
 <template>
-  <h1 class="bg-slate-500">Sign in form</h1>
+  <form>
+    <input type="text" />
+    <input type="password" />
+  </form>
 </template>

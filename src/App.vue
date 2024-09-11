@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
+import { getAccessToken } from './shared/tokenWorkshop';
+const isLoggedIn = ref(getAccessToken());
+console.log('🚀 ~ file: App.vue:6 ~ isLoggedIn:', isLoggedIn.value);
 </script>
 
 <template>
@@ -10,7 +14,7 @@ import { RouterLink, RouterView } from 'vue-router';
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/articles">Articles</RouterLink>
         </div>
-        <RouterLink to="/auth">Auth</RouterLink>
+        <RouterLink to="/auth" v-if="!isLoggedIn">Auth</RouterLink>
       </nav>
     </div>
   </header>
