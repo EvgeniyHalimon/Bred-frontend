@@ -1,6 +1,8 @@
 <script lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { SignInForm, SignUpForm } from '../components';
+import { useAuthStore } from '@/store';
+import { useRouter } from 'vue-router';
 export default {
   components: {
     SignInForm,
@@ -9,6 +11,17 @@ export default {
   setup() {
     const isSignUpForm = ref(false);
     const changeForm = () => (isSignUpForm.value = !isSignUpForm.value);
+    const authStore = useAuthStore();
+    const router = useRouter();
+    onMounted(() => {
+      if (authStore.accessTokenFromLocalStorage) {
+        console.log(
+          '🚀 ~ file: AuthView.vue:18 ~ onMounted ~ authStore.accessTokenFromLocalStorage:',
+          authStore.accessTokenFromLocalStorage
+        );
+        router.push('/');
+      }
+    });
     return {
       isSignUpForm,
       changeForm

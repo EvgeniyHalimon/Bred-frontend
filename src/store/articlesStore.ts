@@ -29,17 +29,17 @@ export const useArticleStore = defineStore({
     getArticle(id: string) {
       return axiosWorker().get(`${GET_BY_ID}/${id}`);
     },
-    getArticles(params: string) {
+    getArticles(params: any) {
       return axiosWorker().get(GET_ALL, params);
     },
-    deleteArticle() {
-      return axiosWorker().purge(DELETE);
+    deleteArticle(id: string) {
+      return axiosWorker().purge(`${DELETE}/${id}`);
     },
     createArticle(data: any) {
       return axiosWorker().purge(CREATE, data);
     },
-    patchArticle(data: any) {
-      return axiosWorker().patch(PATCH, data);
+    patchArticle(data: Partial<IArticle>, id: string) {
+      return axiosWorker().patch(`${PATCH}/${id}`, data);
     }
   }
 });

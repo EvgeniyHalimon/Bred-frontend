@@ -15,7 +15,7 @@ const storageWrapper = (action: 'set' | 'get' | 'remove', key: string, value?: a
     if (action === 'set') {
       localStorage.setItem(key, value);
     } else if (action === 'get') {
-      return JSON.parse(localStorage.getItem(key) as string);
+      return localStorage.getItem(key);
     } else if (action === 'remove') {
       localStorage.removeItem(key);
     }
@@ -46,7 +46,7 @@ export const setUserInLocalStorage = (user: Partial<IUser>) => {
   storageWrapper('set', keys.user, JSON.stringify(user));
 };
 
-export const getUserFromLocalStorage = (): string | null => {
+export const getUserFromLocalStorage = (): IUser => {
   return storageWrapper('get', keys.user);
 };
 
