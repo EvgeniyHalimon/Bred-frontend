@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { Form } from 'vee-validate';
 import SignInValidationSchema from './SignInValidationSchema';
 import { CustomInput } from '../../../components';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
 
 const inputType = ref('password');

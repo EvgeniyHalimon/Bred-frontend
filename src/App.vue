@@ -2,7 +2,7 @@
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 
 import { onMounted } from 'vue';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/authStore';
 const router = useRouter();
 const authStore = useAuthStore();
 onMounted(() => {

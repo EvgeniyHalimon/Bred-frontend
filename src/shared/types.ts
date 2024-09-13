@@ -78,3 +78,7 @@ export type ReactionType =
   | ReactionTypeEnum.DISLIKE;
 
 export type SourceType = SourceTypeEnum.ARTICLE | SourceTypeEnum.COMMENT;
+
+export interface ICount {
+  count: number;
+}

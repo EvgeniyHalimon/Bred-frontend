@@ -1,29 +1,11 @@
 import { defineStore } from 'pinia';
-import type { IArticle } from './shared/types';
-import axiosWorker from './shared/axios';
-import { getAccessToken, getRefreshToken, removeTokens, saveTokens } from './shared/tokenWorkshop';
-import { routesByModule } from './shared/constants';
+import axiosWorker from '../shared/axios';
+import { getAccessToken, getRefreshToken, removeTokens, saveTokens } from '../shared/tokenWorkshop';
+import { routesByModule } from '../shared/constants';
 
 const {
   AUTH: { LOGIN, REGISTER }
 } = routesByModule;
-
-export const useArticleStore = defineStore({
-  id: 'articles',
-  state: () => {
-    return {
-      articles: [] as IArticle[]
-    };
-  },
-  getters: {
-    getArticles: (state) => state.articles
-  },
-  actions: {
-    setArticles(articles: IArticle[]) {
-      this.articles = articles;
-    }
-  }
-});
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -42,7 +24,7 @@ export const useAuthStore = defineStore({
     }
   },
   actions: {
-    async login(values: any) {
+    async login(values: { email: string; password: string }) {
       const result = await axiosWorker().post(LOGIN, values);
       const { accessToken, refreshToken } = result.data;
       if (accessToken && refreshToken) {
@@ -52,7 +34,13 @@ export const useAuthStore = defineStore({
       }
       return !!accessToken && !!refreshToken;
     },
-    async register(values: any) {
+    async register(values: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      password: string;
+      bio: string;
+    }) {
       await axiosWorker().post(REGISTER, values);
     },
     logout() {
