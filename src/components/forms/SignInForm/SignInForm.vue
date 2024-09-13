@@ -3,12 +3,17 @@ import { ref } from 'vue';
 import { Form } from 'vee-validate';
 import SignInValidationSchema from './SignInValidationSchema';
 import { CustomInput } from '../../../components';
-import axiosWorker from '@/shared/axios';
+import { useAuthStore } from '@/store';
+import { useRouter } from 'vue-router';
 
 const inputType = ref('password');
-
+const router = useRouter();
+const authStore = useAuthStore();
 const onSubmit = async (values: any) => {
-  await axiosWorker().post('/auth/login', values);
+  const result = await authStore.login(values);
+  if (result) {
+    router.push('/');
+  }
 };
 </script>
 

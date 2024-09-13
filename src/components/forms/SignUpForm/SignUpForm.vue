@@ -3,12 +3,13 @@ import { ref } from 'vue';
 import { Form } from 'vee-validate';
 import SignUpValidationSchema from './SignUpValidationSchema';
 import { CustomInput } from '../../../components';
-import axiosWorker from '@/shared/axios';
+import { useAuthStore } from '@/store';
 
 const inputType = ref('password');
 
-const onSubmit = async (values: any) => {
-  await axiosWorker().post('/auth/register', values);
+const authStore = useAuthStore();
+const onSubmit = (values: any) => {
+  authStore.register(values);
 };
 </script>
 
