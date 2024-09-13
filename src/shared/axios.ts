@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL, REFRESH } from './constants';
+import { BASE_URL, routesByModule } from './constants';
 import { getAccessToken, saveTokens, getRefreshToken, removeTokens } from './tokenWorkshop';
 
 const axiosWorker = () => {
@@ -42,7 +42,7 @@ const axiosWorker = () => {
       axiosInstance.defaults.headers['Authorization'] = `Bearer ${refreshToken}`;
       if (err.response.status === 403 && err.response) {
         try {
-          const response = await get(REFRESH);
+          const response = await get(routesByModule.AUTH.REFRESH);
           if (response?.status === 200) {
             saveTokens(response.data);
             return axiosInstance({
