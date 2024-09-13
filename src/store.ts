@@ -2,6 +2,11 @@ import { defineStore } from 'pinia';
 import type { IArticle } from './shared/types';
 import axiosWorker from './shared/axios';
 import { getAccessToken, getRefreshToken, removeTokens, saveTokens } from './shared/tokenWorkshop';
+import { routesByModule } from './shared/constants';
+
+const {
+  AUTH: { LOGIN, REGISTER }
+} = routesByModule;
 
 export const useArticleStore = defineStore({
   id: 'articles',
@@ -38,7 +43,7 @@ export const useAuthStore = defineStore({
   },
   actions: {
     async login(values: any) {
-      const result = await axiosWorker().post('/auth/login', values);
+      const result = await axiosWorker().post(LOGIN, values);
       const { accessToken, refreshToken } = result.data;
       if (accessToken && refreshToken) {
         this.accessToken = accessToken;
@@ -48,7 +53,7 @@ export const useAuthStore = defineStore({
       return !!accessToken && !!refreshToken;
     },
     async register(values: any) {
-      await axiosWorker().post('/auth/register', values);
+      await axiosWorker().post(REGISTER, values);
     },
     logout() {
       removeTokens();

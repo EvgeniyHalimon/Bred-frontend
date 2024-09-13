@@ -13,20 +13,20 @@ const axiosWorker = () => {
     }
   });
 
-  const get = (url: string, data?: any): Promise<any> => {
-    return axiosInstance.get(`${url}`, data);
+  const get = (url: string, params?: any): Promise<any> => {
+    return axiosInstance.get(`${url}`, { params });
   };
 
-  const post = (url: string, data: any): Promise<any> => {
-    return axiosInstance.post(`${url}`, data);
+  const post = (url: string, data: any, params?: any): Promise<any> => {
+    return axiosInstance.post(`${url}`, data, { params });
   };
 
-  const put = (url: string, data: any): Promise<any> => {
-    return axiosInstance.put(`${url}`, data);
+  const put = (url: string, data: any, params?: any): Promise<any> => {
+    return axiosInstance.put(`${url}`, data, { params });
   };
 
-  const patch = (url: string, data: any): Promise<any> => {
-    return axiosInstance.put(`${url}`, data);
+  const patch = (url: string, data: any, params?: any): Promise<any> => {
+    return axiosInstance.put(`${url}`, data, { params });
   };
 
   const purge = (url: string, data?: any): Promise<any> => {
