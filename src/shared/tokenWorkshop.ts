@@ -46,7 +46,7 @@ export const setUserInLocalStorage = (user: Partial<IUser>) => {
   storageWrapper('set', keys.user, JSON.stringify(user));
 };
 
-export const getUserFromLocalStorage = (): IUser => {
+export const getUserFromLocalStorage = () => {
   return storageWrapper('get', keys.user);
 };
 

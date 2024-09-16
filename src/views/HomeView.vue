@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { TheWelcome } from '../components';
+import { useUserStore } from '@/store';
+import { UserComponent } from '../components';
+
+const userStore = useUserStore();
+const user = userStore.getUser;
+console.log('🚀 ~ file: HomeView.vue:7 ~ user:', user);
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <UserComponent :user="user" />
   </main>
 </template>

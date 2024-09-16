@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
 import axiosWorker from '../shared/axios';
-import { getAccessToken, getRefreshToken, removeTokens, saveTokens } from '../shared/tokenWorkshop';
+import {
+  getAccessToken,
+  getRefreshToken,
+  removeTokens,
+  saveTokens,
+  setUserInLocalStorage
+} from '../shared/tokenWorkshop';
 import { routesByModule } from '../shared/constants';
 
 const {
@@ -26,11 +32,12 @@ export const useAuthStore = defineStore({
   actions: {
     async login(values: { email: string; password: string }) {
       const result = await axiosWorker().post(LOGIN, values);
-      const { accessToken, refreshToken } = result.data;
-      if (accessToken && refreshToken) {
+      const { accessToken, refreshToken, user } = result.data;
+      if (accessToken && refreshToken && user) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         saveTokens({ accessToken, refreshToken });
+        setUserInLocalStorage(user);
       }
       return !!accessToken && !!refreshToken;
     },

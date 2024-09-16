@@ -6,7 +6,7 @@ export interface IUser {
   password: string;
   bio: string;
   role: UserRole;
-  photo: string | null;
+  photo?: string;
   articles?: IArticle[];
   comments?: IComment[];
   createdAt: Date | string;
