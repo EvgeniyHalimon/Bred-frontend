@@ -9,8 +9,8 @@ export interface IUser {
   photo?: string;
   articles?: IArticle[];
   comments?: IComment[];
-  createdAt: Date | string;
-  updatedAt: Date | string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export enum UserRolesEnum {
@@ -27,16 +27,24 @@ export interface IArticle {
   rating: number;
   authorId: string;
   text: string;
-  createdAt: Date | string;
-  updatedAt: Date | string;
+  createdAt: string;
+  updatedAt: string;
 }
+
+export interface IArticleWithInfo {
+  author: Omit<IUser, 'password' | 'articles' | 'comments'>;
+  comments: IComment[];
+  reactions: IReaction[];
+}
+
+export interface IArticles extends IArticle, IArticleWithInfo {}
 
 export interface IComment {
   id: string;
   authorId: string;
   text: string;
-  createdAt: Date | string;
-  updatedAt: Date | string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type OrderType = 'ASC' | 'DESC';
@@ -57,8 +65,8 @@ export interface IReaction {
   articleId?: string;
   reactionType: ReactionType;
   sourceType: SourceType;
-  createdAt: Date | string;
-  updatedAt: Date | string;
+  createdAt: string;
+  updatedAt: string;
 }
 export enum ReactionTypeEnum {
   UPVOTE = 'upvote',

@@ -13,12 +13,17 @@ export const useUserStore = defineStore({
   state: () => {
     return {
       user: {} as IUser,
-      users: [] as IUser[]
+      users: [] as IUser[],
+      userId: ''
     };
   },
   getters: {
     getUser() {
       return JSON.parse(getUserFromLocalStorage());
+    },
+    getUserId() {
+      const { id } = JSON.parse(getUserFromLocalStorage());
+      return id;
     }
   },
   actions: {
