@@ -14,15 +14,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="p-4 bg-gray-800 shadow-md">
+  <header class="sticky top-0 z-50 p-4 border-b-2 bg-slate-900 border-lime-600">
     <nav class="flex items-center justify-between">
-      <div class="text-2xl font-bold text-white">Bred</div>
+      <div class="font-mono text-2xl font-bold text-lime-600">Bred</div>
       <ul class="flex gap-8">
         <li>
           <RouterLink
             to="/"
-            class="text-lg font-semibold text-white transition duration-300 hover:text-gray-300"
-            active-class="border-b-2 border-yellow-500"
+            class="font-mono text-lg font-semibold transition-all duration-300 duration-400 text-lime-600 hover:text-lime-600"
+            active-class="border-b-2 border-lime-600 hover:text-lime-700"
           >
             Home
           </RouterLink>
@@ -30,8 +30,8 @@ onMounted(() => {
         <li>
           <RouterLink
             to="/articles"
-            class="text-lg font-semibold text-white transition duration-300 hover:text-gray-300"
-            active-class="border-b-2 border-yellow-500"
+            class="font-mono text-lg font-semibold transition-all duration-300 duration-400 text-lime-600 hover:text-lime-700"
+            active-class="border-b-2 border-lime-600 hover:text-lime-700"
           >
             Articles
           </RouterLink>
