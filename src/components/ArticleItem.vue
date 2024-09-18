@@ -19,21 +19,36 @@ const formatDate = (date: string) => {
     day: 'numeric'
   });
 };
+
+const getInitials = (firstName: string, lastName: string) => {
+  return `${firstName[0]}${lastName[0]}`.toUpperCase();
+};
 </script>
 
 <template>
   <article
-    class="relative w-1/2 mx-auto overflow-hidden transition-all border-2 cursor-pointer bg-neutral-900 border-lime-600 hover:border-transparent duration-400 article-clip-path"
+    class="relative w-[48%] overflow-hidden transition-all border-2 cursor-pointer bg-neutral-900 border-lime-600 hover:border-transparent duration-400 article-clip-path"
     v-for="article in articles"
     :key="article.id"
-    @click="() => router.push(`articles/${article.id}`)"
+    @click="
+      () => {
+        console.log(article.id); // проверка id
+        router.push({ name: 'article', params: { id: article.id } });
+      }
+    "
   >
     <div class="flex items-center p-6 bg-gray-900 border-b-2 border-lime-600">
       <img
+        v-if="article.author.photo"
         :src="article.author.photo"
         :alt="`${article.author.firstName} ${article.author.lastName}-avatar`"
         class="object-cover w-12 h-12 rounded-full"
       />
+      <div v-else class="flex items-center justify-center w-12 h-12 rounded-full bg-neutral-800">
+        <span class="font-mono text-xl text-lime-600">
+          {{ getInitials(article.author.firstName, article.author.lastName) }}
+        </span>
+      </div>
       <div class="ml-4">
         <h2 class="font-mono text-xl font-semibold text-lime-600">
           {{ article.author.firstName }} {{ article.author.lastName }}

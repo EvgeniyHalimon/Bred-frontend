@@ -3,13 +3,25 @@ import { useUserStore } from '@/store';
 
 const userStore = useUserStore();
 const user = userStore.getUser;
-console.log('🚀 ~ file: HomeView.vue:7 ~ user:', user);
+const getInitials = (firstName: string, lastName: string) => {
+  return `${firstName[0]}${lastName[0]}`.toUpperCase();
+};
 </script>
 
 <template>
   <div class="max-w-sm mx-auto overflow-hidden border-2 border-lime-600 bg-neutral-900">
     <div class="relative">
-      <img :src="user.photo" :alt="`${user.firstName}-avatar`" class="object-cover w-full h-48" />
+      <img
+        v-if="user.photo"
+        :src="user.photo"
+        :alt="`${user.firstName}-avatar`"
+        class="object-cover w-full h-48"
+      />
+      <div v-else class="flex items-center justify-center w-full h-48 bg-neutral-800">
+        <span class="font-mono text-4xl text-lime-600">
+          {{ getInitials(user.firstName, user.lastName) }}
+        </span>
+      </div>
     </div>
     <div class="p-6">
       <h2 class="font-mono text-3xl font-bold text-lime-600">

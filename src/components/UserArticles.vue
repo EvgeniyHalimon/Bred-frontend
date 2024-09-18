@@ -2,7 +2,6 @@
 import type { OrderType } from '@/shared/types';
 import { useArticleStore, useUserStore } from '@/store';
 import { reactive, watchEffect } from 'vue';
-import { useRouter } from 'vue-router';
 import { ArticleItem } from '.';
 
 const articlesStore = useArticleStore();
@@ -20,7 +19,7 @@ const articles = articlesStore.getArticlesState;
 
 const getArticles = async () => {
   const { data } = await articlesStore.getArticles({
-    authorId: authorId.value,
+    authorId: authorId,
     ...articleParams
   });
   if (data.articles) {
@@ -42,7 +41,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8 my-3">
+  <div class="flex flex-wrap justify-between gap-8 my-4">
     <ArticleItem :articles="articles" />
   </div>
 </template>

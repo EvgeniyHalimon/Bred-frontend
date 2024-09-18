@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+console.log('🚀 ~ file: ArticleView.vue:5 ~ route:', route);
+</script>
+
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <h1>{{ route.params.id }}</h1>
 </template>

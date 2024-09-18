@@ -15,10 +15,6 @@ export default {
     const router = useRouter();
     onMounted(() => {
       if (authStore.accessTokenFromLocalStorage) {
-        console.log(
-          '🚀 ~ file: AuthView.vue:18 ~ onMounted ~ authStore.accessTokenFromLocalStorage:',
-          authStore.accessTokenFromLocalStorage
-        );
         router.push('/');
       }
     });
