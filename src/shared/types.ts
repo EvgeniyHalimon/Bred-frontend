@@ -7,8 +7,6 @@ export interface IUser {
   bio: string;
   role: UserRole;
   photo?: string;
-  articles?: IArticle[];
-  comments?: IComment[];
   createdAt: string;
   updatedAt: string;
 }
@@ -21,6 +19,15 @@ export enum UserRolesEnum {
 
 export type UserRole = UserRolesEnum.USER | UserRolesEnum.ADMIN | UserRolesEnum.SUPER_ADMIN;
 
+export interface IAuthor {
+  author: IUser;
+}
+
+export interface ICommentWithAuthor extends IComment, IAuthor {}
+export interface IReactionWithUser extends IReaction {
+  user: IUser;
+}
+
 export interface IArticle {
   id: string;
   title: string;
@@ -31,13 +38,10 @@ export interface IArticle {
   updatedAt: string;
 }
 
-export interface IArticleWithInfo {
-  author: Omit<IUser, 'password' | 'articles' | 'comments'>;
-  comments: IComment[];
-  reactions: IReaction[];
+export interface IArticleWithInfo extends IArticle, IAuthor {
+  comments: ICommentWithAuthor[];
+  reactions: IReactionWithUser[];
 }
-
-export interface IArticles extends IArticle, IArticleWithInfo {}
 
 export interface IComment {
   id: string;

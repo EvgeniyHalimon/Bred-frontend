@@ -16,24 +16,24 @@ export const routesByModule = {
     REFRESH: `${routes.AUTH}/refresh`
   },
   ARTICLES: {
-    PATCH: `${routes.ARTICLES}/`,
-    CREATE: `${routes.ARTICLES}/`,
-    DELETE: `${routes.ARTICLES}/`,
-    GET_ALL: `${routes.ARTICLES}/`,
-    GET_BY_ID: `${routes.ARTICLES}/`
+    PATCH: `${routes.ARTICLES}`,
+    CREATE: `${routes.ARTICLES}`,
+    DELETE: `${routes.ARTICLES}`,
+    GET_ALL: `${routes.ARTICLES}`,
+    GET_BY_ID: `${routes.ARTICLES}`
   },
   COMMENTS: {
-    PATCH: `${routes.COMMENTS}/`,
-    CREATE: `${routes.COMMENTS}/`,
-    DELETE: `${routes.COMMENTS}/`,
-    GET_ALL: `${routes.COMMENTS}/`
+    PATCH: `${routes.COMMENTS}`,
+    CREATE: `${routes.COMMENTS}`,
+    DELETE: `${routes.COMMENTS}`,
+    GET_ALL: `${routes.COMMENTS}`
   },
   REACTIONS: {
-    PATCH: `${routes.REACTIONS}/`,
-    CREATE: `${routes.REACTIONS}/`,
-    DELETE: `${routes.REACTIONS}/`,
-    GET_ALL: `${routes.REACTIONS}/`,
-    GET_BY_ID: `${routes.REACTIONS}/`
+    PATCH: `${routes.REACTIONS}`,
+    CREATE: `${routes.REACTIONS}`,
+    DELETE: `${routes.REACTIONS}`,
+    GET_ALL: `${routes.REACTIONS}`,
+    GET_BY_ID: `${routes.REACTIONS}`
   },
   USERS: {
     PATCH: `${routes.USERS}/`,

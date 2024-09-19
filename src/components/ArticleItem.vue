@@ -1,41 +1,25 @@
 <script setup lang="ts">
-import type { IArticles } from '@/shared/types';
+import type { IArticleWithInfo } from '@/shared/types';
+import { getInitials, formatDate } from '@/shared/utils';
 import type { PropType } from 'vue';
 import { useRouter } from 'vue-router';
 
 defineProps({
   articles: {
-    type: Array as PropType<IArticles[]>,
+    type: Array as PropType<IArticleWithInfo[]>,
     required: true
   }
 });
 
 const router = useRouter();
-
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
-
-const getInitials = (firstName: string, lastName: string) => {
-  return `${firstName[0]}${lastName[0]}`.toUpperCase();
-};
 </script>
 
 <template>
   <article
-    class="relative w-[48%] overflow-hidden transition-all border-2 cursor-pointer bg-neutral-900 border-lime-600 hover:border-transparent duration-400 article-clip-path"
+    class="relative w-[48%] h-72 overflow-hidden transition-all border-2 cursor-pointer bg-neutral-900 border-lime-600 hover:border-transparent duration-400 article-clip-path"
     v-for="article in articles"
     :key="article.id"
-    @click="
-      () => {
-        console.log(article.id); // проверка id
-        router.push({ name: 'article', params: { id: article.id } });
-      }
-    "
+    @click="() => router.push({ name: 'article', params: { id: article.id } })"
   >
     <div class="flex items-center p-6 bg-gray-900 border-b-2 border-lime-600">
       <img
@@ -58,7 +42,12 @@ const getInitials = (firstName: string, lastName: string) => {
     </div>
     <div class="p-6">
       <h1 class="mb-4 font-mono text-3xl font-bold text-lime-600">{{ article.title }}</h1>
-      <p class="mb-6 font-mono leading-relaxed text-lime-600">{{ article.text }}</p>
+      <p
+        class="mb-6 overflow-hidden font-mono leading-relaxed text-lime-600 max-h-24 text-ellipsis"
+      >
+        {{ article.text }}
+      </p>
+
       <div class="flex items-center justify-between">
         <p class="font-mono text-sm text-lime-600">{{ article.reactions.length }} reactions</p>
         <p class="font-mono text-sm text-lime-600">{{ article.comments.length }} comments</p>

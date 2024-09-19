@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import type { IArticle, IArticles } from '../shared/types';
+import type { IArticle, IArticleWithInfo } from '../shared/types';
 import axiosWorker from '../shared/axios';
 import { routesByModule } from '../shared/constants';
-import { computed } from 'vue';
+import { computed, type ComputedRef } from 'vue';
 
 const {
   ARTICLES: { GET_ALL, GET_BY_ID, PATCH, CREATE, DELETE }
@@ -12,19 +12,19 @@ export const useArticleStore = defineStore({
   id: 'articles',
   state: () => {
     return {
-      articles: [] as IArticles[],
-      article: {} as IArticle
+      articles: [] as IArticleWithInfo[],
+      article: {} as IArticleWithInfo
     };
   },
   getters: {
     getArticlesState: (state) => computed(() => state.articles),
-    getArticleState: (state) => computed(() => state.article)
+    getArticleState: (state): ComputedRef<IArticleWithInfo> => computed(() => state.article)
   },
   actions: {
-    setArticles(articles: IArticles[]) {
+    setArticles(articles: IArticleWithInfo[]) {
       this.articles = articles;
     },
-    setArticle(article: IArticle) {
+    setArticle(article: IArticleWithInfo) {
       this.article = article;
     },
     getArticle(id: string) {

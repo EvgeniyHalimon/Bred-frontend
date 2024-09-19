@@ -40,7 +40,7 @@ const axiosWorker = () => {
     async (err) => {
       const originalRequest = err.config;
       axiosInstance.defaults.headers['Authorization'] = `Bearer ${refreshToken}`;
-      if (err.response.status === 403 && err.response) {
+      if (err.response.status === 401 && err.response) {
         try {
           const response = await get(routesByModule.AUTH.REFRESH);
           if (response?.status === 200) {

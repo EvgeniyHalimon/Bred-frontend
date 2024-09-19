@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useUserStore } from '@/store';
+import { getInitials } from '@/shared/utils';
 
 const userStore = useUserStore();
 const user = userStore.getUser;
-const getInitials = (firstName: string, lastName: string) => {
-  return `${firstName[0]}${lastName[0]}`.toUpperCase();
-};
 </script>
 
 <template>
