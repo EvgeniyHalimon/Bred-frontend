@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { BASE_URL, routesByModule } from './constants';
-import { getAccessToken, saveTokens, getRefreshToken, removeTokens } from './tokenWorkshop';
+import {
+  getAccessToken,
+  saveTokens,
+  getRefreshToken,
+  removeTokens,
+  removeUserFromLocalStorage
+} from './tokenWorkshop';
 
 const axiosWorker = () => {
   const accessToken = getAccessToken();
@@ -40,11 +46,15 @@ const axiosWorker = () => {
     async (err) => {
       const originalRequest = err.config;
       axiosInstance.defaults.headers['Authorization'] = `Bearer ${refreshToken}`;
-      if (err.response.status === 401 && err.response) {
+      if (err.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+
         try {
           const response = await get(routesByModule.AUTH.REFRESH);
+
           if (response?.status === 200) {
             saveTokens(response.data);
+
             return axiosInstance({
               ...originalRequest,
               headers: {
@@ -56,12 +66,13 @@ const axiosWorker = () => {
         } catch (error: any) {
           if (error.response && error.response.data) {
             removeTokens();
+            removeUserFromLocalStorage();
             return error.response.data;
           }
-          return error.response.data;
         }
       }
-      return err.response.data;
+
+      return Promise.reject(err);
     }
   );
 
