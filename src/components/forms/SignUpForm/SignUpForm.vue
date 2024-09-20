@@ -17,7 +17,7 @@ const onSubmit = (values: any) => {
   <Form
     @submit="onSubmit"
     :validationSchema="SignUpValidationSchema"
-    class="max-w-md p-6 mx-auto bg-white rounded-md shadow-lg"
+    class="max-w-md p-6 mx-auto border-2 border-lime-600"
   >
     <CustomInput name="email" type="email" />
     <CustomInput name="password" :type="inputType" />
@@ -30,14 +30,14 @@ const onSubmit = (values: any) => {
         id="show-password"
         type="checkbox"
         @change="inputType = inputType === 'password' ? 'text' : 'password'"
-        class="mr-2"
+        class="mr-2 cursor-pointer accent-lime-600"
       />
-      <label for="show-password" class="text-sm text-gray-700">Show password</label>
+      <label for="show-password" class="text-sm text-lime-600">Show password</label>
     </div>
 
     <button
       type="submit"
-      class="w-full py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500"
+      class="px-4 py-2 font-mono text-sm font-medium transition-all cursor-pointer hover:font-bold duration-400 clip-path-custom text-neutral-900 bg-lime-600 hover:bg-lime-500"
     >
       Sign Up
     </button>

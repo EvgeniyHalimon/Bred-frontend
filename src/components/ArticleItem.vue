@@ -16,12 +16,12 @@ const router = useRouter();
 
 <template>
   <article
-    class="relative w-[48%] h-72 overflow-hidden transition-all border-2 cursor-pointer bg-neutral-900 border-lime-600 hover:border-transparent duration-400 article-clip-path"
+    class="relative w-[48%] h-72 overflow-hidden transition-all border-2 cursor-pointer bg-neutral-800 border-lime-600 hover:border-black duration-400 article-clip-path"
     v-for="article in articles"
     :key="article.id"
     @click="() => router.push({ name: 'article', params: { id: article.id } })"
   >
-    <div class="flex items-center p-6 bg-gray-900 border-b-2 border-lime-600">
+    <div class="flex items-center p-6 border-b-2 bg-neutral-900 border-lime-600">
       <img
         v-if="article.author.photo"
         :src="article.author.photo"
@@ -43,7 +43,7 @@ const router = useRouter();
     <div class="p-6">
       <h1 class="mb-4 font-mono text-3xl font-bold text-lime-600">{{ article.title }}</h1>
       <p
-        class="mb-6 overflow-hidden font-mono leading-relaxed text-lime-600 max-h-24 text-ellipsis"
+        class="mb-6 overflow-hidden font-mono leading-relaxed h-7 text-lime-600 max-h-24 text-ellipsis"
       >
         {{ article.text }}
       </p>

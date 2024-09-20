@@ -29,15 +29,23 @@ export default {
 <template>
   <div>
     <SignUpForm v-if="isSignUpForm">
-      <p class="mt-3">
+      <p class="mt-3 font-mono text-lime-600">
         Already have an account?
-        <span class="underline cursor-pointer" @click="changeForm">Sign In</span>
+        <span
+          class="font-mono underline transition-all duration-300 cursor-pointer text-lime-600 hover:text-lime-500"
+          @click="changeForm"
+          >Sign In</span
+        >
       </p>
     </SignUpForm>
     <SignInForm v-else>
-      <p class="mt-3">
+      <p class="mt-3 font-mono text-lime-600">
         Don't have an account?
-        <span class="underline cursor-pointer" @click="changeForm">Sign Up</span>
+        <span
+          class="font-mono underline transition-all duration-300 cursor-pointer text-lime-600 hover:text-lime-500"
+          @click="changeForm"
+          >Sign Up</span
+        >
       </p>
     </SignInForm>
   </div>

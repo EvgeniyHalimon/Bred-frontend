@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { UserComponent, UserArticles } from '../components';
+import { UserProfile, UserArticles } from '../components';
 </script>
 
 <template>
   <main>
-    <UserComponent />
+    <UserProfile />
     <UserArticles />
   </main>
 </template>

@@ -18,9 +18,4 @@ const user = userStore.getUser;
       {{ getInitials(user.firstName, user.lastName) }}
     </span>
   </div>
-  <!-- <div class="p-6">
-      <h2 class="font-mono text-3xl font-bold text-lime-600">
-        {{ user.firstName }} {{ user.lastName }}
-      </h2>
-    </div> -->
 </template>
