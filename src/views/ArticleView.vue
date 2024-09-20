@@ -19,7 +19,7 @@ watchEffect(async () => await getArticle());
 </script>
 
 <template>
-  <div class="flex gap-8">
+  <div class="flex gap-8" v-if="article.author">
     <img
       v-if="article.author.photo"
       :src="article.author.photo"

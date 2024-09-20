@@ -46,9 +46,7 @@ const axiosWorker = () => {
     async (err) => {
       const originalRequest = err.config;
       axiosInstance.defaults.headers['Authorization'] = `Bearer ${refreshToken}`;
-      if (err.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-
+      if (err.response.status === 401 && getRefreshToken()) {
         try {
           const response = await get(routesByModule.AUTH.REFRESH);
 

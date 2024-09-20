@@ -4,6 +4,7 @@ import {
   getAccessToken,
   getRefreshToken,
   removeTokens,
+  removeUserFromLocalStorage,
   saveTokens,
   setUserInLocalStorage
 } from '../shared/tokenWorkshop';
@@ -52,6 +53,7 @@ export const useAuthStore = defineStore({
     },
     logout() {
       removeTokens();
+      removeUserFromLocalStorage();
       this.accessToken = undefined;
       this.refreshToken = undefined;
     }
