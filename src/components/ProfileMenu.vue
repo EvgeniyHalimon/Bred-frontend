@@ -12,13 +12,6 @@ const user = userStore.getUser;
 
 const isMenuOpen = ref(false);
 
-/* const { accessTokenFromLocalStorage, refreshTokenFromLocalStorage } = storeToRefs(authStore);
-console.log(
-  '🚀 ~ file: ProfileMenu.vue:16 ~ accessToken, refreshToken:',
-  accessTokenFromLocalStorage.value,
-  refreshTokenFromLocalStorage.value
-); */
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };

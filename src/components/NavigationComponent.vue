@@ -9,7 +9,7 @@ const route = useRoute();
 const authStore = useAuthStore();
 
 onMounted(() => {
-  if (!authStore.accessTokenFromLocalStorage) {
+  if (!authStore.accessToken) {
     router.push('/auth');
   }
 });
@@ -40,7 +40,7 @@ onMounted(() => {
         </li>
       </ul>
     </div>
-    <ProfileMenu v-if="route.path !== '/auth' && authStore.accessTokenFromLocalStorage" />
+    <ProfileMenu v-if="route.path !== '/auth' && authStore.accessToken" />
   </nav>
 </template>
 

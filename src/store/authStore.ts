@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { ref, computed, watch } from 'vue';
 import axiosWorker from '../shared/axios';
 import {
   getAccessToken,
@@ -14,48 +15,53 @@ const {
   AUTH: { LOGIN, REGISTER }
 } = routesByModule;
 
-export const useAuthStore = defineStore({
-  id: 'auth',
-  state: () => {
-    return {
-      accessToken: undefined,
-      refreshToken: undefined
-    };
-  },
-  getters: {
-    accessTokenFromLocalStorage() {
-      return getAccessToken();
-    },
-    refreshTokenFromLocalStorage() {
-      return getRefreshToken();
+export const useAuthStore = defineStore('authStore', () => {
+  const accessToken = ref(getAccessToken());
+  const refreshToken = ref(getRefreshToken());
+
+  const isLoggedIn = computed(() => !!accessToken.value && !!refreshToken.value);
+
+  const login = async (values: { email: string; password: string }) => {
+    const result = await axiosWorker().post(LOGIN, values);
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken, user } = result.data;
+    if (newAccessToken && newRefreshToken && user) {
+      accessToken.value = newAccessToken;
+      refreshToken.value = newRefreshToken;
+      saveTokens({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+      setUserInLocalStorage(user);
     }
-  },
-  actions: {
-    async login(values: { email: string; password: string }) {
-      const result = await axiosWorker().post(LOGIN, values);
-      const { accessToken, refreshToken, user } = result.data;
-      if (accessToken && refreshToken && user) {
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-        saveTokens({ accessToken, refreshToken });
-        setUserInLocalStorage(user);
-      }
-      return !!accessToken && !!refreshToken;
-    },
-    async register(values: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      password: string;
-      bio: string;
-    }) {
-      await axiosWorker().post(REGISTER, values);
-    },
-    logout() {
-      removeTokens();
-      removeUserFromLocalStorage();
-      this.accessToken = undefined;
-      this.refreshToken = undefined;
+    return isLoggedIn.value;
+  };
+
+  const register = async (values: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    bio: string;
+  }) => {
+    await axiosWorker().post(REGISTER, values);
+  };
+
+  const logout = () => {
+    removeTokens();
+    removeUserFromLocalStorage();
+    accessToken.value = '';
+    refreshToken.value = '';
+  };
+
+  watch([accessToken, refreshToken], ([newAccessToken, newRefreshToken]) => {
+    if (newAccessToken && newRefreshToken) {
+      saveTokens({ accessToken: newAccessToken, refreshToken: newRefreshToken });
     }
-  }
+  });
+
+  return {
+    accessToken,
+    refreshToken,
+    isLoggedIn,
+    login,
+    register,
+    logout
+  };
 });
