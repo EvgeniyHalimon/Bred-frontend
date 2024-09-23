@@ -3,12 +3,11 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore, useUserStore } from '@/store';
 import { getInitials } from '@/shared/utils';
-import { storeToRefs } from 'pinia';
 
 const router = useRouter();
 const authStore = useAuthStore();
 const userStore = useUserStore();
-const user = userStore.getUser;
+const user = userStore.user;
 
 const isMenuOpen = ref(false);
 
@@ -27,7 +26,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div class="relative" @click="toggleMenu">
+  <div v-if="user" class="relative" @click="toggleMenu">
     <div class="cursor-pointer">
       <img
         v-if="user.photo"
@@ -41,8 +40,6 @@ const logout = () => {
         </span>
       </div>
     </div>
-
-    <!-- Dropdown Menu -->
     <ul
       v-if="isMenuOpen"
       class="absolute right-0 w-40 p-2 mt-2 font-mono text-sm bg-black border-2 rounded-md border-lime-600"

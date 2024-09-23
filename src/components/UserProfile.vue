@@ -3,12 +3,12 @@ import { useUserStore } from '@/store';
 import { getInitials } from '@/shared/utils';
 
 const userStore = useUserStore();
-const user = userStore.getUser;
-const userId = userStore.getUserId;
+const user = userStore.user;
+const userId = userStore.userId;
 </script>
 
 <template>
-  <div class="max-w-sm mx-auto overflow-hidden border-2 border-lime-600 bg-neutral-900">
+  <div v-if="user" class="max-w-sm mx-auto overflow-hidden border-2 border-lime-600 bg-neutral-900">
     <div class="relative">
       <img
         v-if="user.photo"

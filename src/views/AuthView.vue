@@ -14,7 +14,7 @@ export default {
     const authStore = useAuthStore();
     const router = useRouter();
     onMounted(() => {
-      if (authStore.accessTokenFromLocalStorage) {
+      if (authStore.accessToken) {
         router.push('/');
       }
     });

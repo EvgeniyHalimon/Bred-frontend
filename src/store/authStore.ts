@@ -15,7 +15,7 @@ const {
   AUTH: { LOGIN, REGISTER }
 } = routesByModule;
 
-export const useAuthStore = defineStore('authStore', () => {
+export const useAuthStore = defineStore('auth', () => {
   const accessToken = ref(getAccessToken());
   const refreshToken = ref(getRefreshToken());
 

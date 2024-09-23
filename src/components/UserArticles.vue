@@ -6,7 +6,7 @@ import { ArticleItem } from '.';
 
 const articlesStore = useArticleStore();
 const userStore = useUserStore();
-const authorId = userStore.getUserId;
+const authorId = userStore.userId;
 
 const articleParams = reactive({
   page: 1,
@@ -16,9 +16,10 @@ const articleParams = reactive({
 });
 
 const articles = articlesStore.getArticlesState;
+console.log('🚀 ~ file: UserArticles.vue:19 ~ articles:', articles);
 
 const getArticles = async () => {
-  const { data } = await articlesStore.getArticles({
+  const { data } = await articlesStore.fetchArticles({
     authorId: authorId,
     ...articleParams
   });
@@ -35,8 +36,8 @@ const changeOrder = (newOrder: OrderType) => {
   articleParams.order = newOrder;
 };
 
-watchEffect(async () => {
-  await getArticles();
+watchEffect(() => {
+  getArticles();
 });
 </script>
 
