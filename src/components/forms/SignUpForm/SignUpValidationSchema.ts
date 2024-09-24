@@ -20,7 +20,7 @@ export const SignUpValidationSchema = yup.object().shape({
     .string()
     .matches(
       /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      "Invalid email format. Please enter a valid email address with an '@' symbol and a domain, e.g., user@example.com"
+      'Please enter a valid email, e.g., q@example.com'
     )
     .email('Must be a valid email!')
     .required('Email is required'),
