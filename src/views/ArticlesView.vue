@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { OrderType } from '@/shared/types';
-import { useArticleStore, useUserStore } from '@/store';
-import { reactive, watchEffect } from 'vue';
+import { useArticleStore } from '@/store';
+import { reactive, toRefs, watchEffect } from 'vue';
 import { ArticleItem } from '@/components';
 const articlesStore = useArticleStore();
-const userStore = useUserStore();
 
 const articleParams = reactive({
   page: 1,
@@ -13,10 +12,10 @@ const articleParams = reactive({
   orderBy: 'rating'
 });
 
-const articles = articlesStore.getArticlesState;
+const { articles } = toRefs(articlesStore);
 
 const getArticles = async () => {
-  const { data } = await articlesStore.getArticles({
+  const { data } = await articlesStore.fetchArticles({
     ...articleParams
   });
   if (data.articles) {
@@ -32,8 +31,8 @@ const changeOrder = (newOrder: OrderType) => {
   articleParams.order = newOrder;
 };
 
-watchEffect(async () => {
-  await getArticles();
+watchEffect(() => {
+  getArticles();
 });
 </script>
 

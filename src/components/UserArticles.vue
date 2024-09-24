@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { OrderType } from '@/shared/types';
 import { useArticleStore, useUserStore } from '@/store';
-import { reactive, watchEffect } from 'vue';
+import { reactive, toRefs, watchEffect } from 'vue';
 import { ArticleItem } from '.';
 
 const articlesStore = useArticleStore();
@@ -15,8 +15,7 @@ const articleParams = reactive({
   orderBy: 'rating'
 });
 
-const articles = articlesStore.getArticlesState;
-console.log('🚀 ~ file: UserArticles.vue:19 ~ articles:', articles);
+const { articles } = toRefs(articlesStore);
 
 const getArticles = async () => {
   const { data } = await articlesStore.fetchArticles({
