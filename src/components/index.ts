@@ -7,3 +7,4 @@ export { default as UserProfile } from './UserProfile.vue';
 export { default as UserArticles } from './UserArticles.vue';
 export { default as ProfileMenu } from './ProfileMenu.vue';
 export { default as NavigationComponent } from './NavigationComponent.vue';
+export { default as ModalWrapper } from './ModalWrapper.vue';

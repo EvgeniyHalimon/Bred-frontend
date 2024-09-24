@@ -1,10 +1,23 @@
 <script setup lang="ts">
 import { useUserStore } from '@/store';
 import { getInitials } from '@/shared/utils';
+import { ref } from 'vue';
+import { ModalWrapper } from '.';
+import UpdateUserForm from './forms/UpdateUserFrom/UpdateUserForm.vue';
 
 const userStore = useUserStore();
 const user = userStore.user;
 const userId = userStore.userId;
+
+const isModalOpen = ref(false);
+
+const openModal = () => {
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -26,23 +39,21 @@ const userId = userStore.userId;
       <h2 class="font-mono text-3xl font-bold text-lime-600">
         {{ user.firstName }} {{ user.lastName }}
       </h2>
-      <p class="mt-4 font-mono leading-relaxed text-lime-600">Bio: {{ user.bio }}</p>
+      <p class="mt-4 font-mono leading-relaxed whitespace-pre text-wrap text-lime-600">
+        Bio: {{ user.bio }}
+      </p>
       <div v-if="user.id === userId" class="flex items-center justify-between mt-6">
         <button
+          @click="openModal"
           class="px-4 py-2 font-mono text-sm font-medium transition-all cursor-pointer hover:font-bold duration-400 clip-path-custom text-neutral-900 bg-lime-600 hover:bg-lime-500"
         >
           Edit Profile
         </button>
       </div>
+
+      <ModalWrapper :isOpen="isModalOpen" @close="closeModal" title="Edit Profile">
+        <UpdateUserForm />
+      </ModalWrapper>
     </div>
   </div>
 </template>
-
-<!-- <template>
-  <div class="mx-auto overflow-hidden bg-white rounded-lg shadow-lg max-w-60">
-    <img :src="user.photo" :alt="`${user.firstName}-avatar`" class="object-cover w-full h-40" />
-    <div class="p-6">
-      <h2 class="text-2xl font-semibold text-gray-800">{{ user.firstName }} {{ user.lastName }}</h2>
-    </div>
-  </div>
-</template> -->

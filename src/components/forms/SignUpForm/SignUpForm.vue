@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Form } from 'vee-validate';
+import { useField, useForm } from 'vee-validate';
 import SignUpValidationSchema from './SignUpValidationSchema';
 import { CustomInput } from '../../../components';
 import { useAuthStore } from '@/store/authStore';
@@ -8,22 +8,36 @@ import { useAuthStore } from '@/store/authStore';
 const inputType = ref('password');
 
 const authStore = useAuthStore();
-const onSubmit = (values: any) => {
+
+const { value: firstName } = useField<string>('firstName');
+const { value: lastName } = useField<string>('lastName');
+const { value: bio } = useField<string>('bio');
+const { value: email } = useField<string>('email');
+const { value: password } = useField<string>('password');
+
+const { handleSubmit } = useForm({
+  validationSchema: SignUpValidationSchema,
+  initialValues: {
+    firstName: '',
+    lastName: '',
+    bio: '',
+    email: '',
+    password: ''
+  }
+});
+
+const onSubmit = handleSubmit((values: any) => {
   authStore.register(values);
-};
+});
 </script>
 
 <template>
-  <Form
-    @submit="onSubmit"
-    :validationSchema="SignUpValidationSchema"
-    class="max-w-md p-6 mx-auto border-2 border-lime-600"
-  >
-    <CustomInput name="email" type="email" />
-    <CustomInput name="password" :type="inputType" />
-    <CustomInput name="firstName" type="firstName" />
-    <CustomInput name="lastName" type="lastName" />
-    <CustomInput name="bio" type="bio" />
+  <form @submit="onSubmit" class="max-w-md p-6 mx-auto border-2 border-lime-600">
+    <CustomInput name="email" type="text" v-model="email" />
+    <CustomInput name="password" :type="inputType" v-model="password" />
+    <CustomInput name="firstName" type="text" v-model="firstName" />
+    <CustomInput name="lastName" type="text" v-model="lastName" />
+    <CustomInput name="bio" type="text" v-model="bio" />
 
     <div class="flex items-center mb-4">
       <input
@@ -42,5 +56,5 @@ const onSubmit = (values: any) => {
       Sign Up
     </button>
     <slot></slot>
-  </Form>
+  </form>
 </template>

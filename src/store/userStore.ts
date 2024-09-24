@@ -29,9 +29,8 @@ export const useUserStore = defineStore('users', () => {
     return result;
   };
 
-  const patchUser = async (data: Partial<IUser>) => {
-    const result = await axiosWorker().patch(PATCH, data);
-    return result;
+  const patchUser = (data: Partial<IUser>) => {
+    return axiosWorker().patch(PATCH, data);
   };
 
   return {

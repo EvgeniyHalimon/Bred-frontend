@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Form } from 'vee-validate';
+import { useField, useForm } from 'vee-validate';
 import SignInValidationSchema from './SignInValidationSchema';
 import { CustomInput } from '../../../components';
 import { useAuthStore } from '@/store/authStore';
@@ -9,22 +9,30 @@ import { useRouter } from 'vue-router';
 const inputType = ref('password');
 const router = useRouter();
 const authStore = useAuthStore();
-const onSubmit = async (values: any) => {
+
+const { handleSubmit } = useForm({
+  validationSchema: SignInValidationSchema,
+  initialValues: {
+    email: '',
+    password: ''
+  }
+});
+
+const { value: email } = useField<string>('email');
+const { value: password } = useField<string>('password');
+
+const onSubmit = handleSubmit(async (values: any) => {
   const result = await authStore.login(values);
   if (result) {
     router.push('/');
   }
-};
+});
 </script>
 
 <template>
-  <Form
-    @submit="onSubmit"
-    :validationSchema="SignInValidationSchema"
-    class="max-w-md p-6 mx-auto border-2 border-lime-600"
-  >
-    <CustomInput name="email" type="email" />
-    <CustomInput name="password" :type="inputType" />
+  <form @submit="onSubmit" class="max-w-md p-6 mx-auto border-2 border-lime-600">
+    <CustomInput name="email" type="text" v-model="email" />
+    <CustomInput name="password" :type="inputType" v-model="password" />
 
     <div class="flex items-center mb-4">
       <input
@@ -43,5 +51,5 @@ const onSubmit = async (values: any) => {
       Login
     </button>
     <slot></slot>
-  </Form>
+  </form>
 </template>
