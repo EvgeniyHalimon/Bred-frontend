@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useArticleStore } from '@/store';
-import { ref, watchEffect } from 'vue';
+import { ref, toRefs, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { getInitials, formatDate } from '@/shared/utils';
+import { CommentForm, CommentsComponent } from '@/components';
 const route = useRoute();
 const articleId = ref(route.params.id as string);
 
 const articleStore = useArticleStore();
-const article = articleStore.getArticleState;
+const { article } = toRefs(articleStore);
 const getArticle = async () => {
   const { data } = await articleStore.fetchArticle(articleId.value);
   if (data) {
@@ -20,7 +21,7 @@ watchEffect(async () => await getArticle());
 
 <template>
   <div v-if="article">
-    <div class="flex gap-8">
+    <div class="flex gap-8 mb-5">
       <img
         v-if="article.author.photo"
         :src="article.author.photo"
@@ -39,9 +40,13 @@ watchEffect(async () => await getArticle());
         <p class="font-mono text-lg text-lime-600">{{ formatDate(article.createdAt) }}</p>
       </div>
     </div>
-    <div class="py-6">
-      <h1 class="mb-4 font-mono text-5xl font-bold text-lime-600">{{ article.title }}</h1>
-      <p class="mb-6 font-mono text-xl leading-relaxed text-lime-600">{{ article.text }}</p>
+    <div class="flex flex-col gap-2 mb-5">
+      <h1 class="font-mono text-5xl font-bold text-lime-600">{{ article.title }}</h1>
+      <p class="pb-6 font-mono text-xl leading-relaxed border-b text-lime-600 border-lime-400">
+        {{ article.text }}
+      </p>
     </div>
+    <CommentsComponent :comments="article.comments" />
+    <CommentForm />
   </div>
 </template>

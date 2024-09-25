@@ -41,7 +41,7 @@ const closeModal = () => {
         {{ user.firstName }} {{ user.lastName }}
       </h2>
       <p class="mt-4 font-mono text-lg font-semibold leading-relaxed text-lime-600">Bio:</p>
-      <p class="mt-4 font-mono leading-relaxed whitespace-pre text-wrap text-lime-600">
+      <p class="mt-4 font-mono leading-relaxed whitespace-pre-wrap text-wrap text-lime-600">
         {{ user.bio }}
       </p>
       <div v-if="user.id === userId" class="flex items-center justify-between mt-6">
