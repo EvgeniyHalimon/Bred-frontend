@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { OrderType } from '@/shared/types';
 import { useArticleStore, useUserStore } from '@/store';
-import { reactive, toRefs, watchEffect } from 'vue';
+import { reactive, toRefs, watch, watchEffect } from 'vue';
 import { ArticleItem } from '.';
 
 const articlesStore = useArticleStore();
@@ -38,6 +38,16 @@ const changeOrder = (newOrder: OrderType) => {
 watchEffect(() => {
   getArticles();
 });
+
+const { user } = toRefs(userStore);
+
+watch(
+  user,
+  () => {
+    getArticles();
+  },
+  { deep: true }
+);
 </script>
 
 <template>

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useUserStore } from '@/store';
 import { getInitials } from '@/shared/utils';
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import { ModalWrapper } from '.';
 import UpdateUserForm from './forms/UpdateUserFrom/UpdateUserForm.vue';
 
 const userStore = useUserStore();
-const user = userStore.user;
+
+const { user } = toRefs(userStore);
 const userId = userStore.userId;
 
 const isModalOpen = ref(false);
@@ -39,8 +40,9 @@ const closeModal = () => {
       <h2 class="font-mono text-3xl font-bold text-lime-600">
         {{ user.firstName }} {{ user.lastName }}
       </h2>
+      <p class="mt-4 font-mono text-lg font-semibold leading-relaxed text-lime-600">Bio:</p>
       <p class="mt-4 font-mono leading-relaxed whitespace-pre text-wrap text-lime-600">
-        Bio: {{ user.bio }}
+        {{ user.bio }}
       </p>
       <div v-if="user.id === userId" class="flex items-center justify-between mt-6">
         <button

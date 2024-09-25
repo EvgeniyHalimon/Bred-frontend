@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore, useUserStore } from '@/store';
 import { getInitials } from '@/shared/utils';
@@ -7,7 +7,7 @@ import { getInitials } from '@/shared/utils';
 const router = useRouter();
 const authStore = useAuthStore();
 const userStore = useUserStore();
-const user = userStore.user;
+const { user } = toRefs(userStore);
 
 const isMenuOpen = ref(false);
 

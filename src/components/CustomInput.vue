@@ -42,7 +42,7 @@ const onInput = (event: Event) => {
       :placeholder="placeholder"
       :value="modelValue"
       @input="onInput"
-      class="block w-full h-10 px-3 py-2 font-mono border border-lime-300 focus:outline-none focus:ring-2 focus:ring-lime-500"
+      class="block w-full h-10 px-3 py-2 font-mono text-black border border-lime-500 focus:outline-none focus:ring-2 focus:ring-lime-600"
     />
     <textarea
       v-else
@@ -51,7 +51,7 @@ const onInput = (event: Event) => {
       :placeholder="placeholder"
       :value="modelValue"
       @input="onInput"
-      class="block w-full h-10 px-3 py-2 font-mono border border-lime-300 focus:outline-none focus:ring-2 focus:ring-lime-500"
+      class="block w-full h-20 px-3 py-2 font-mono text-black border resize-none border-lime-500 focus:outline-none focus:ring-2 focus:ring-lime-600"
     ></textarea>
 
     <ErrorMessage :name="name" class="absolute mt-1 font-mono text-sm text-red-600" />

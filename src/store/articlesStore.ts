@@ -43,26 +43,6 @@ export const useArticleStore = defineStore('article', () => {
     return axiosWorker().patch(`${PATCH}/${id}`, data);
   };
 
-  /* watch(
-    () => articles,
-    (newArticles) => {
-      console.log(
-        '🚀 ~ file: articlesStore.ts:50 ~ useArticleStore ~ newArticles:',
-        newArticles.value
-      );
-      articles.value = newArticles.value;
-    },
-    { deep: true, immediate: true }
-  );
-
-  watch(
-    () => article,
-    (newArticle) => {
-      article.value = newArticle.value;
-    },
-    { deep: true }
-  ); */
-
   return {
     articles,
     article,

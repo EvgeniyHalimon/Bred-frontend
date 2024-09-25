@@ -32,7 +32,15 @@ const axiosWorker = () => {
   };
 
   const patch = (url: string, data: any, params?: any): Promise<any> => {
-    return axiosInstance.put(`${url}`, data, { params });
+    const headers =
+      data instanceof FormData
+        ? { 'Content-Type': 'multipart/form-data' }
+        : { 'Content-Type': 'application/json' };
+
+    return axiosInstance.patch(`${url}`, data, {
+      params,
+      headers
+    });
   };
 
   const purge = (url: string, data?: any): Promise<any> => {
