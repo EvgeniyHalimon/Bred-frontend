@@ -1,13 +1,20 @@
 import { defineStore } from 'pinia';
-import type { IComment } from '../shared/types';
+import type { IComment, ICommentWithAuthor } from '../shared/types';
 import axiosWorker from '../shared/axios';
 import { routesByModule } from '../shared/constants';
+import { ref } from 'vue';
 
 const {
   COMMENTS: { GET_ALL, PATCH, CREATE, DELETE }
 } = routesByModule;
 
 export const useCommentsStore = defineStore('comments', () => {
+  const comments = ref<ICommentWithAuthor[]>([]);
+
+  const setComments = (newComments: ICommentWithAuthor[]) => {
+    comments.value = newComments;
+  };
+
   const getComments = (params: any) => {
     return axiosWorker().get(GET_ALL, params);
   };
@@ -22,6 +29,8 @@ export const useCommentsStore = defineStore('comments', () => {
   };
 
   return {
+    comments,
+    setComments,
     getComments,
     deleteComment,
     createComment,

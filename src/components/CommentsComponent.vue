@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import type { IArticleWithInfo } from '@/shared/types';
+import type { ICommentWithAuthor } from '@/shared/types';
 import { formatDate, getInitials } from '@/shared/utils';
 import { defineProps } from 'vue';
 import type { PropType } from 'vue';
 
 defineProps({
   comments: {
-    type: Array as PropType<IArticleWithInfo[]>,
+    type: Array as PropType<ICommentWithAuthor[]>,
     required: true
   }
 });
+
+const like = () => {};
+
+const dislike = () => {};
 </script>
 
 <template>
@@ -35,6 +39,18 @@ defineProps({
         <p class="font-mono text-sm font-bold whitespace-pre-wrap text-lime-600">
           {{ comment.text }}
         </p>
+        <!-- <Icon
+          icon="mdi:thumb-up"
+          color="#65a30d"
+          v-on:click="
+            () => {
+              console.log('123');
+            }
+          "
+        />
+        <Icon icon="mdi:thumb-up-outline" color="#65a30d" />
+        <Icon icon="mdi:thumb-down" color="#65a30d" />
+        <Icon icon="mdi:thumb-down-outline" color="#65a30d" /> -->
       </div>
     </div>
   </div>

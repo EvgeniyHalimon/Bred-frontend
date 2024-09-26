@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { OrderType } from '@/shared/types';
-import { useArticleStore } from '@/store';
+import { useArticleStore, useCommentsStore, useReactionsStore } from '@/store';
 import { reactive, toRefs, watchEffect } from 'vue';
 import { ArticleItem } from '@/components';
 
 const articlesStore = useArticleStore();
+const reactionsStore = useReactionsStore();
+const commentsStore = useCommentsStore();
 
 const articleParams = reactive({
   page: 1,

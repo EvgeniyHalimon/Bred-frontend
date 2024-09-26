@@ -94,3 +94,10 @@ export type SourceType = SourceTypeEnum.ARTICLE | SourceTypeEnum.COMMENT;
 export interface ICount {
   count: number;
 }
+
+export interface IReactionBody {
+  commentId?: string;
+  articleId?: string;
+  reactionType: ReactionType;
+  sourceType: SourceType;
+}

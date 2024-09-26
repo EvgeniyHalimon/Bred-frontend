@@ -44,6 +44,7 @@ const closeModal = () => {
       <p class="mt-4 font-mono leading-relaxed whitespace-pre-wrap text-wrap text-lime-600">
         {{ user.bio }}
       </p>
+      <!-- BUG -->
       <div v-if="user.id === userId" class="flex items-center justify-between mt-6">
         <button
           @click="openModal"
