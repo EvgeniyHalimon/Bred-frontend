@@ -46,6 +46,7 @@ export interface IArticleWithInfo extends IArticle, IAuthor {
 export interface IComment {
   id: string;
   authorId: string;
+  articleId: string;
   text: string;
   createdAt: string;
   updatedAt: string;

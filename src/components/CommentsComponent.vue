@@ -36,21 +36,11 @@ const dislike = () => {};
           {{ comment.author.firstName }} {{ comment.author.lastName }}
         </h2>
         <p class="mb-2 font-mono text-xs text-lime-600">{{ formatDate(comment.createdAt) }}</p>
-        <p class="font-mono text-sm font-bold whitespace-pre-wrap text-lime-600">
+        <p
+          class="lg:max-w-[80dvw] md:max-w-[75dvw] max-w-[70dvw] font-mono text-sm font-bold break-words whitespace-pre-wrap text-lime-600"
+        >
           {{ comment.text }}
         </p>
-        <!-- <Icon
-          icon="mdi:thumb-up"
-          color="#65a30d"
-          v-on:click="
-            () => {
-              console.log('123');
-            }
-          "
-        />
-        <Icon icon="mdi:thumb-up-outline" color="#65a30d" />
-        <Icon icon="mdi:thumb-down" color="#65a30d" />
-        <Icon icon="mdi:thumb-down-outline" color="#65a30d" /> -->
       </div>
     </div>
   </div>

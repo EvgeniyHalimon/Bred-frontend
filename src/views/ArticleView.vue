@@ -67,19 +67,21 @@ watchEffect(async () => await getArticle());
       </div>
 
       <div class="flex gap-2">
-        <Icon v-if="isUpvoted" icon="mdi:chevron-up-box" color="#65a30d" :width="30" />
-        <Icon v-else icon="mdi:chevron-up-box" color="#65a30d" :rotate="90" :width="30" />
+        <Icon v-if="isUpvoted" icon="mdi:chevron-up-box-outline" color="#65a30d" :width="30" />
+        <Icon v-else icon="mdi:chevron-up-box" color="#65a30d" :width="30" />
         <Icon v-if="isDownvoted" icon="mdi:chevron-up-box-outline" color="#65a30d" :width="30" />
         <Icon v-else icon="mdi:chevron-up-box-outline" color="#65a30d" :rotate="90" :width="30" />
       </div>
     </div>
     <div class="flex flex-col gap-2 mb-5">
       <h1 class="font-mono text-5xl font-bold text-lime-600">{{ article.title }}</h1>
-      <p class="pb-6 font-mono text-xl leading-relaxed border-b text-lime-600 border-lime-400">
+      <p
+        class="pb-6 font-mono text-xl leading-relaxed whitespace-pre-wrap border-b text-lime-600 border-lime-400"
+      >
         {{ article.text }}
       </p>
     </div>
-    <CommentsComponent :comments="article.comments" />
+    <CommentsComponent :comments="comments" />
     <CommentForm />
   </div>
 </template>

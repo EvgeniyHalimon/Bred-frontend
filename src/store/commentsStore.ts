@@ -15,6 +15,10 @@ export const useCommentsStore = defineStore('comments', () => {
     comments.value = newComments;
   };
 
+  const updateComments = (newComment: ICommentWithAuthor) => {
+    comments.value = [...comments.value, newComment];
+  };
+
   const getComments = (params: any) => {
     return axiosWorker().get(GET_ALL, params);
   };
@@ -22,7 +26,7 @@ export const useCommentsStore = defineStore('comments', () => {
     return axiosWorker().purge(`${DELETE}/${id}`);
   };
   const createComment = (data: Partial<IComment>) => {
-    return axiosWorker().purge(CREATE, data);
+    return axiosWorker().post(CREATE, data);
   };
   const patchComment = (data: Partial<IComment>, id: string) => {
     return axiosWorker().patch(`${PATCH}/${id}`, data);
@@ -32,6 +36,7 @@ export const useCommentsStore = defineStore('comments', () => {
     comments,
     setComments,
     getComments,
+    updateComments,
     deleteComment,
     createComment,
     patchComment

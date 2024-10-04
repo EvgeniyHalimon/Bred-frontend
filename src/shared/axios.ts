@@ -47,6 +47,11 @@ const axiosWorker = () => {
     return axiosInstance.delete(`${url}`, data);
   };
 
+  let requestCount = 0;
+  if (requestCount > 1) {
+    removeTokens();
+    removeUserFromLocalStorage();
+  }
   axiosInstance.interceptors.response.use(
     (res) => {
       return res;
@@ -57,6 +62,7 @@ const axiosWorker = () => {
       if (err.response.status === 401 && getRefreshToken()) {
         try {
           const response = await get(routesByModule.AUTH.REFRESH);
+          requestCount++;
 
           if (response?.status === 200) {
             saveTokens(response.data);
