@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import { getInitials, formatDate } from '@/shared/utils';
 import { CommentForm, CommentsComponent } from '@/components';
 import { Icon } from '@iconify/vue';
+import { ReactionTypeEnum, type ReactionType } from '@/shared/types';
 const route = useRoute();
 const articleId = ref(route.params.id as string);
 
@@ -20,28 +21,24 @@ const { user } = toRefs(userStore);
 const getArticle = async () => {
   const { data } = await articleStore.fetchArticle(articleId.value);
   if (data) {
-    console.log('🚀 ~ file: ArticleView.vue:16 ~ getArticle ~ data:', data);
     articleStore.setArticle(data);
     commentsStore.setComments(data.comments);
     reactionsStore.setReactions(data.reactions);
   }
 };
 
-const isUpvoted = computed(
-  () =>
+const checkReaction = (reactionType: ReactionType) => {
+  return (
     user.value &&
     reactions.value?.some(
-      (reaction) => reaction.userId === user.value?.id && reaction.reactionType === 'upvote'
+      (reaction) => reaction.userId === user.value?.id && reaction.reactionType === reactionType
     )
-);
+  );
+};
 
-const isDownvoted = computed(
-  () =>
-    user.value &&
-    reactions.value?.some(
-      (reaction) => reaction.userId === user.value?.id && reaction.reactionType === 'downvote'
-    )
-);
+const isUpvoted = computed(() => checkReaction(ReactionTypeEnum.UPVOTE));
+
+const isDownvoted = computed(() => checkReaction(ReactionTypeEnum.DOWNVOTE));
 
 watchEffect(async () => await getArticle());
 </script>
