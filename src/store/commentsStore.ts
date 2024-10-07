@@ -19,10 +19,24 @@ export const useCommentsStore = defineStore('comments', () => {
     comments.value = [...comments.value, newComment];
   };
 
+  const deleteCommentFromStore = (id: string) => {
+    comments.value = comments.value.filter((comment) => comment.id !== id);
+  };
+
+  const updateCommentFromStore = (newComment: ICommentWithAuthor) => {
+    comments.value = comments.value.map((comment) => {
+      if (comment.id == newComment.id) {
+        return newComment;
+      }
+      return comment;
+    });
+  };
+
   const getComments = (params: any) => {
     return axiosWorker().get(GET_ALL, params);
   };
   const deleteComment = (id: string) => {
+    comments.value = comments.value.filter((comment) => comment.id !== id);
     return axiosWorker().purge(`${DELETE}/${id}`);
   };
   const createComment = (data: Partial<IComment>) => {
@@ -35,6 +49,8 @@ export const useCommentsStore = defineStore('comments', () => {
   return {
     comments,
     setComments,
+    deleteCommentFromStore,
+    updateCommentFromStore,
     getComments,
     updateComments,
     deleteComment,

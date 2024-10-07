@@ -51,6 +51,13 @@ const axiosWorker = () => {
   if (requestCount > 1) {
     removeTokens();
     removeUserFromLocalStorage();
+    return {
+      get,
+      post,
+      put,
+      patch,
+      purge
+    };
   }
   axiosInstance.interceptors.response.use(
     (res) => {

@@ -1,47 +1,50 @@
 <script setup lang="ts">
-import { ErrorMessage, useField, useForm } from 'vee-validate';
-import CreateCommentSchema from './CreateCommentSchema';
+import type { ICommentWithAuthor } from '@/shared/types';
+import { defineProps, ref } from 'vue';
+import type { PropType } from 'vue';
 import { useCommentsStore } from '@/store';
-import { useRoute } from 'vue-router';
+import { ErrorMessage, useField, useForm } from 'vee-validate';
+import CreateCommentSchema from '../CommentForm/CreateCommentSchema';
 import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
 
-const isHovered = ref(false);
-
-const route = useRoute();
-
-const commentsStore = useCommentsStore();
-
-const { handleSubmit } = useForm({
-  validationSchema: CreateCommentSchema,
-  initialValues: {
-    text: ''
+const props = defineProps({
+  comment: {
+    type: Object as PropType<ICommentWithAuthor>,
+    required: true
+  },
+  isEdit: {
+    type: Boolean,
+    required: true
   }
 });
 
+const commentsStore = useCommentsStore();
+
+const isHovered = ref(false);
+
+console.log('🚀 ~ file: UpdateCommentForm.vue:29 ~ props:', props.comment.text);
+const { handleSubmit } = useForm({
+  validationSchema: CreateCommentSchema,
+  initialValues: {
+    text: props.comment.text
+  }
+});
 const { value: text } = useField<string>('text');
 
 const onSubmit = handleSubmit(async (values: { text: string }) => {
-  const result = await commentsStore.createComment({
-    ...values,
-    articleId: route.params.id as string
-  });
+  const result = await commentsStore.patchComment(values, props.comment.id);
   text.value = '';
   if (result) {
-    commentsStore.updateComments(result.data);
+    commentsStore.updateCommentFromStore(result.data);
   }
 });
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" :validation-schema="CreateCommentSchema" class="relative">
-    <label for="text" class="block mb-1 font-mono text-sm font-medium capitalize text-lime-600">
-      What's your opinion?
-    </label>
+  <form v-if="isEdit" @submit="onSubmit" class="relative">
     <textarea
       id="text"
       name="text"
-      placeholder="What's on your mind?"
       v-model="text"
       class="block w-full h-20 px-3 py-2 font-mono bg-black border resize-none text-lime-500 border-lime-500 focus:outline-none focus:ring-2 focus:ring-lime-600"
     ></textarea>
@@ -55,9 +58,9 @@ const onSubmit = handleSubmit(async (values: { text: string }) => {
         :icon="isHovered ? 'mdi:send-variant' : 'mdi:send-variant-outline'"
         color="#65a30d"
         :width="20"
-        class="transition-all duration-500"
       />
     </button>
     <ErrorMessage name="text" class="absolute mt-1 font-mono text-sm text-red-600" />
   </form>
+  <slot v-else></slot>
 </template>
