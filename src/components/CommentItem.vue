@@ -4,13 +4,16 @@ import { formatDate, getInitials } from '@/shared/utils';
 import { defineProps, ref } from 'vue';
 import type { PropType } from 'vue';
 import { CommentsIcons, UpdateCommentForm } from '.';
+import { useUserStore } from '@/store';
 
-const props = defineProps({
+defineProps({
   comment: {
     type: Object as PropType<ICommentWithAuthor>,
     required: true
   }
 });
+
+const userStore = useUserStore();
 
 const isEdit = ref(false);
 </script>
@@ -36,7 +39,11 @@ const isEdit = ref(false);
           </h2>
           <p class="mb-2 font-mono text-xs text-lime-600">{{ formatDate(comment.createdAt) }}</p>
         </div>
-        <CommentsIcons v-model:is-edit="isEdit" :comment-id="comment.id" />
+        <CommentsIcons
+          v-model:is-edit="isEdit"
+          :comment-id="comment.id"
+          v-if="userStore.userId === comment.authorId"
+        />
       </div>
 
       <UpdateCommentForm :comment="comment" v-model:is-edit="isEdit">

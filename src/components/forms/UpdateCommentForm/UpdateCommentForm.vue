@@ -65,7 +65,7 @@ const onEscape = () => {
     >
       <Icon
         :icon="isHovered ? 'mdi:send-variant' : 'mdi:send-variant-outline'"
-        color="#65a30d"
+        class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
         :width="20"
       />
     </button>

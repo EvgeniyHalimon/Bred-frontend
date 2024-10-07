@@ -67,10 +67,17 @@ watchEffect(async () => await getArticle());
       </div>
 
       <div class="flex gap-2">
-        <Icon v-if="isUpvoted" icon="mdi:chevron-up-box-outline" color="#65a30d" :width="30" />
-        <Icon v-else icon="mdi:chevron-up-box" color="#65a30d" :width="30" />
-        <Icon v-if="isDownvoted" icon="mdi:chevron-up-box-outline" color="#65a30d" :width="30" />
-        <Icon v-else icon="mdi:chevron-up-box-outline" color="#65a30d" :rotate="90" :width="30" />
+        <Icon
+          :icon="isUpvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
+          :width="30"
+          class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
+        />
+        <Icon
+          :icon="isDownvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
+          :rotate="90"
+          :width="30"
+          class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
+        />
       </div>
     </div>
     <div class="flex flex-col gap-2 mb-5">

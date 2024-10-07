@@ -53,9 +53,8 @@ const onSubmit = handleSubmit(async (values: { text: string }) => {
     >
       <Icon
         :icon="isHovered ? 'mdi:send-variant' : 'mdi:send-variant-outline'"
-        color="#65a30d"
         :width="20"
-        class="transition-all duration-500"
+        class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
       />
     </button>
     <ErrorMessage name="text" class="absolute mt-1 font-mono text-sm text-red-600" />
