@@ -34,23 +34,30 @@ const deleteComment = async () => {
     <button
       @mouseenter="isEditHovering = true"
       @mouseleave="isEditHovering = false"
-      class="transition-all duration-500"
+      class="h-5 transition-all duration-500 outline-none"
       @click="$emit('update:isEdit', isEdit ? false : true)"
+      @keydown.esc="$emit('update:isEdit', false)"
     >
       <Icon
         :icon="isEditHovering ? 'mdi:pencil' : 'mdi:pencil-outline'"
         color="#65a30d"
         :width="20"
+        :height="20"
       />
     </button>
 
     <button
       @mouseenter="isDeleteHovering = true"
       @mouseleave="isDeleteHovering = false"
-      class="transition-all duration-500"
+      class="h-5 transition-all duration-500"
       @click="deleteComment"
     >
-      <Icon :icon="isDeleteHovering ? 'mdi:bin' : 'mdi:bin-outline'" color="#65a30d" :width="20" />
+      <Icon
+        :icon="isDeleteHovering ? 'mdi:bin' : 'mdi:bin-outline'"
+        color="#65a30d"
+        :width="20"
+        :height="20"
+      />
     </button>
   </div>
 </template>

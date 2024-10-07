@@ -22,22 +22,30 @@ const commentsStore = useCommentsStore();
 
 const isHovered = ref(false);
 
-console.log('🚀 ~ file: UpdateCommentForm.vue:29 ~ props:', props.comment.text);
 const { handleSubmit } = useForm({
   validationSchema: CreateCommentSchema,
   initialValues: {
     text: props.comment.text
   }
 });
+
 const { value: text } = useField<string>('text');
 
 const onSubmit = handleSubmit(async (values: { text: string }) => {
   const result = await commentsStore.patchComment(values, props.comment.id);
   text.value = '';
+  emit('update:isEdit', false);
   if (result) {
     commentsStore.updateCommentFromStore(result.data);
   }
 });
+
+const emit = defineEmits(['update:isEdit']);
+
+const onEscape = () => {
+  text.value = props.comment.text;
+  emit('update:isEdit', false);
+};
 </script>
 
 <template>
@@ -46,7 +54,8 @@ const onSubmit = handleSubmit(async (values: { text: string }) => {
       id="text"
       name="text"
       v-model="text"
-      class="block w-full h-20 px-3 py-2 font-mono bg-black border resize-none text-lime-500 border-lime-500 focus:outline-none focus:ring-2 focus:ring-lime-600"
+      class="block w-full h-20 px-3 py-2 font-mono bg-black border outline-none resize-none text-lime-500 border-lime-500 focus:outline-none focus:ring-2 focus:ring-lime-600"
+      @keydown.esc="onEscape"
     ></textarea>
     <button
       type="submit"

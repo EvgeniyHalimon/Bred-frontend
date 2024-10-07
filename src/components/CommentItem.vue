@@ -5,7 +5,7 @@ import { defineProps, ref } from 'vue';
 import type { PropType } from 'vue';
 import { CommentsIcons, UpdateCommentForm } from '.';
 
-defineProps({
+const props = defineProps({
   comment: {
     type: Object as PropType<ICommentWithAuthor>,
     required: true
@@ -39,7 +39,7 @@ const isEdit = ref(false);
         <CommentsIcons v-model:is-edit="isEdit" :comment-id="comment.id" />
       </div>
 
-      <UpdateCommentForm :comment="comment" :isEdit="isEdit">
+      <UpdateCommentForm :comment="comment" v-model:is-edit="isEdit">
         <p
           class="max-w-full overflow-hidden font-mono text-sm font-bold break-words whitespace-pre-wrap text-lime-600 word-break"
           v-if="!isEdit"

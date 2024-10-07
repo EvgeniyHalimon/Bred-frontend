@@ -24,12 +24,11 @@ export const useCommentsStore = defineStore('comments', () => {
   };
 
   const updateCommentFromStore = (newComment: ICommentWithAuthor) => {
-    comments.value = comments.value.map((comment) => {
-      if (comment.id == newComment.id) {
-        return newComment;
-      }
-      return comment;
-    });
+    const index = comments.value.findIndex((comment) => comment.id === newComment.id);
+
+    if (index !== -1) {
+      Object.assign(comments.value[index], newComment);
+    }
   };
 
   const getComments = (params: any) => {
