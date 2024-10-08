@@ -2,8 +2,7 @@
 import { useUserStore } from '@/store';
 import { getInitials } from '@/shared/utils';
 import { ref, toRefs } from 'vue';
-import { ModalWrapper } from '.';
-import UpdateUserForm from './forms/UpdateUserFrom/UpdateUserForm.vue';
+import { ModalWrapper, UpdateUserForm } from '.';
 
 const userStore = useUserStore();
 

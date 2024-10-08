@@ -31,21 +31,20 @@ const { handleSubmit } = useForm({
 
 const { value: text } = useField<string>('text');
 
+const emit = defineEmits<{ 'update:isEdit': [boolean] }>();
+
+const onEscape = () => {
+  emit('update:isEdit', false);
+  text.value = props.comment.text;
+};
+
 const onSubmit = handleSubmit(async (values: { text: string }) => {
   const result = await commentsStore.patchComment(values, props.comment.id);
-  text.value = '';
-  emit('update:isEdit', false);
+  onEscape();
   if (result) {
     commentsStore.updateCommentFromStore(result.data);
   }
 });
-
-const emit = defineEmits(['update:isEdit']);
-
-const onEscape = () => {
-  text.value = props.comment.text;
-  emit('update:isEdit', false);
-};
 </script>
 
 <template>

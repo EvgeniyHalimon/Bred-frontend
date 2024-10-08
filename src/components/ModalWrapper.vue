@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue';
 
 const props = defineProps({
@@ -12,24 +12,20 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['close']);
-
-const { isOpen, title } = toRefs(props);
+const emit = defineEmits<{ close: [] }>();
 
 const closeModal = () => {
   emit('close');
 };
 
-const onBackgroundClick = () => {
-  closeModal();
-};
+const { isOpen, title } = toRefs(props);
 </script>
 
 <template>
   <div
     v-if="isOpen"
     class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
-    @click="onBackgroundClick"
+    @click="closeModal"
   >
     <div class="w-full max-w-lg bg-neutral-900" @click.stop>
       <div class="relative flex items-center justify-center p-4 border-b border-lime-600">

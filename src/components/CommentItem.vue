@@ -46,7 +46,7 @@ const isEdit = ref(false);
         />
       </div>
 
-      <UpdateCommentForm :comment="comment" v-model:is-edit="isEdit">
+      <UpdateCommentForm :comment="comment" v-model:isEdit="isEdit">
         <p
           class="max-w-full overflow-hidden font-mono text-sm font-bold break-words whitespace-pre-wrap text-lime-600 word-break"
           v-if="!isEdit"
