@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type { IReaction, IReactionWithUser } from '../shared/types';
+import type { IReaction, IReactionWithUser, ReactionTypeEnum } from '../shared/types';
 import axiosWorker from '../shared/axios';
 import { routesByModule } from '../shared/constants';
 import { ref } from 'vue';
@@ -13,6 +13,25 @@ export const useReactionsStore = defineStore('reactions', () => {
 
   const setReactions = (newReactions: IReactionWithUser[]) => {
     reactions.value = newReactions;
+  };
+
+  const deleteReactionFromStore = (id: string) => {
+    reactions.value = reactions.value.filter((reaction) => reaction.id !== id);
+  };
+
+  const updateReactionFromStore = (
+    reactionId: string,
+    reactionType: ReactionTypeEnum.UPVOTE | ReactionTypeEnum.DOWNVOTE
+  ) => {
+    const index = reactions.value.findIndex((reaction) => reaction.id === reactionId);
+
+    if (index !== -1) {
+      Object.assign(reactions.value[index], { ...reactions.value[index], reactionType });
+    }
+  };
+
+  const updateReactions = (newReaction: IReactionWithUser) => {
+    reactions.value = [...reactions.value, newReaction];
   };
 
   const getReaction = (id: string) => {
@@ -34,6 +53,9 @@ export const useReactionsStore = defineStore('reactions', () => {
   return {
     reactions,
     setReactions,
+    updateReactions,
+    deleteReactionFromStore,
+    updateReactionFromStore,
     getReaction,
     getReactions,
     deleteReaction,

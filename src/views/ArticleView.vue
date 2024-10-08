@@ -1,46 +1,18 @@
 <script setup lang="ts">
-import { useArticleStore, useCommentsStore, useReactionsStore, useUserStore } from '@/store';
-import { computed, ref, toRefs, watchEffect } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { getInitials, formatDate } from '@/shared/utils';
 import { CommentForm, CommentsComponent } from '@/components';
 import { Icon } from '@iconify/vue';
-import { ReactionTypeEnum, type ReactionType } from '@/shared/types';
+import { ReactionTypeEnum } from '@/shared/types';
+import { useArticleInteractions } from '@/composables';
 const route = useRoute();
 const articleId = ref(route.params.id as string);
 
-const articleStore = useArticleStore();
-const commentsStore = useCommentsStore();
-const reactionsStore = useReactionsStore();
-const { article } = toRefs(articleStore);
-const { comments } = toRefs(commentsStore);
-const { reactions } = toRefs(reactionsStore);
-const userStore = useUserStore();
+const { article, comments, isUpvoted, isDownvoted, getArticle, handleVote } =
+  useArticleInteractions(articleId.value);
 
-const { user } = toRefs(userStore);
-const getArticle = async () => {
-  const { data } = await articleStore.fetchArticle(articleId.value);
-  if (data) {
-    articleStore.setArticle(data);
-    commentsStore.setComments(data.comments);
-    reactionsStore.setReactions(data.reactions);
-  }
-};
-
-const checkReaction = (reactionType: ReactionType) => {
-  return (
-    user.value &&
-    reactions.value?.some(
-      (reaction) => reaction.userId === user.value?.id && reaction.reactionType === reactionType
-    )
-  );
-};
-
-const isUpvoted = computed(() => checkReaction(ReactionTypeEnum.UPVOTE));
-
-const isDownvoted = computed(() => checkReaction(ReactionTypeEnum.DOWNVOTE));
-
-watchEffect(async () => await getArticle());
+watchEffect(getArticle);
 </script>
 
 <template>
@@ -67,17 +39,22 @@ watchEffect(async () => await getArticle());
       </div>
 
       <div class="flex gap-2">
-        <Icon
-          :icon="isUpvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
-          :width="30"
-          class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
-        />
-        <Icon
-          :icon="isDownvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
-          :rotate="90"
-          :width="30"
-          class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
-        />
+        <button @click="() => handleVote(ReactionTypeEnum.UPVOTE)">
+          <Icon
+            :icon="isUpvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
+            :width="30"
+            class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
+          />
+        </button>
+
+        <button @click="() => handleVote(ReactionTypeEnum.DOWNVOTE)">
+          <Icon
+            :icon="isDownvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
+            :rotate="90"
+            :width="30"
+            class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
+          />
+        </button>
       </div>
     </div>
     <div class="flex flex-col gap-2 mb-5">

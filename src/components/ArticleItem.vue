@@ -3,7 +3,6 @@ import type { IArticleWithInfo } from '@/shared/types';
 import { getInitials, formatDate } from '@/shared/utils';
 import type { PropType } from 'vue';
 import { useRouter } from 'vue-router';
-import { Icon } from '@iconify/vue';
 
 defineProps({
   articles: {
