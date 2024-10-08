@@ -50,8 +50,8 @@ watchEffect(async () => await getArticle());
         <img
           v-if="article.author.photo"
           :src="article.author.photo"
-          :alt="`${article.author.firstName} ${article.author.lastName}-avatar`"
-          class="object-cover w-24 h-24 rounded-full"
+          :alt="`${article.author.firstName}-${article.author.lastName}-avatar`"
+          class="object-cover w-24 h-24 mb-2 rounded-full"
         />
         <div v-else class="flex items-center justify-center w-24 h-24 rounded-full bg-neutral-800">
           <span class="font-mono text-2xl font-bold text-lime-600">

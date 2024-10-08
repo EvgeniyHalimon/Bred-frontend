@@ -3,6 +3,7 @@ import { RouterLink, useRouter, useRoute } from 'vue-router';
 import { onMounted } from 'vue';
 import { useAuthStore } from '@/store/authStore';
 import ProfileMenu from './ProfileMenu.vue';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const router = useRouter();
 const route = useRoute();
@@ -18,7 +19,12 @@ onMounted(() => {
 <template>
   <nav class="flex items-center justify-between">
     <div>
-      <div class="font-mono text-2xl font-bold text-lime-600">Bred</div>
+      <div class="flex text-lime-600">
+        <Icon icon="mdi:alpha-b-box-outline" class="text-3xl" />
+        <Icon icon="mdi:alpha-r-box" class="text-3xl" />
+        <Icon icon="mdi:alpha-e-box-outline" class="text-3xl" />
+        <Icon icon="mdi:alpha-d-box" class="text-3xl" />
+      </div>
       <ul class="flex gap-8">
         <li>
           <RouterLink

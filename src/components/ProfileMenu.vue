@@ -31,7 +31,7 @@ const logout = () => {
       <img
         v-if="user.photo"
         :src="user.photo"
-        :alt="`${user.firstName} ${user.lastName}-avatar`"
+        :alt="`${user.firstName}-${user.lastName}-avatar`"
         class="object-cover w-12 h-12 rounded-full"
       />
       <div v-else class="flex items-center justify-center w-12 h-12 rounded-full bg-neutral-800">

@@ -98,14 +98,14 @@ const handleDragLeave = () => {
       <img
         v-if="photoPreview"
         :src="photoPreview"
-        :alt="`${firstName} ${lastName}-avatar-preview`"
+        :alt="`${firstName}-${lastName}-avatar-preview`"
         class="object-cover mb-4 rounded-full w-14 h-14"
       />
 
       <img
         v-else-if="user && user.photo"
         :src="user.photo"
-        :alt="`${user.firstName} ${user.lastName}-avatar`"
+        :alt="`${user.firstName}-${user.lastName}-avatar`"
         class="object-cover mb-4 rounded-full w-14 h-14"
       />
       <div

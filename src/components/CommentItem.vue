@@ -23,7 +23,7 @@ const isEdit = ref(false);
     <img
       v-if="comment.author.photo"
       :src="comment.author.photo"
-      :alt="`${comment.author.firstName} ${comment.author.lastName}-avatar`"
+      :alt="`${comment.author.firstName}-${comment.author.lastName}-avatar`"
       class="object-cover w-12 h-12 rounded-full"
     />
     <div v-else class="flex items-center justify-center w-12 h-12 rounded-full bg-neutral-800">
