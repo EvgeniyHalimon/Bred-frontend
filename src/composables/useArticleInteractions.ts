@@ -1,5 +1,5 @@
 import { useArticleStore, useCommentsStore, useReactionsStore, useUserStore } from '@/store';
-import { computed, toRefs, watch } from 'vue';
+import { computed, toRefs } from 'vue';
 import { ReactionTypeEnum, SourceTypeEnum, type ReactionType } from '@/shared/types';
 
 export function useArticleInteractions(articleId: string) {
