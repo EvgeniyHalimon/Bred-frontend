@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { getInitials, formatDate } from '@/shared/utils';
 import { CommentForm, CommentsComponent } from '@/components';
 import { Icon } from '@iconify/vue';
 import { ReactionTypeEnum } from '@/shared/types';
 import { useArticleInteractions } from '@/composables';
+import ArticleIcons from '@/components/ArticleIcons.vue';
 const route = useRoute();
 const articleId = ref(route.params.id as string);
 
@@ -38,23 +39,26 @@ watchEffect(getArticle);
         </div>
       </div>
 
-      <div class="flex gap-2">
-        <button @click="() => handleVote(ReactionTypeEnum.UPVOTE)">
-          <Icon
-            :icon="isUpvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
-            :width="30"
-            class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
-          />
-        </button>
+      <div class="flex gap-2 self-baseline">
+        <ArticleIcons />
+        <div class="flex gap-2">
+          <button @click="() => handleVote(ReactionTypeEnum.UPVOTE)">
+            <Icon
+              :icon="isUpvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
+              :width="30"
+              class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
+            />
+          </button>
 
-        <button @click="() => handleVote(ReactionTypeEnum.DOWNVOTE)">
-          <Icon
-            :icon="isDownvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
-            :rotate="90"
-            :width="30"
-            class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
-          />
-        </button>
+          <button @click="() => handleVote(ReactionTypeEnum.DOWNVOTE)">
+            <Icon
+              :icon="isDownvoted ? 'mdi:chevron-up-box' : 'mdi:chevron-up-box-outline'"
+              :rotate="90"
+              :width="30"
+              class="transition-all duration-500 cursor-pointer text-lime-600 hover:text-lime-500"
+            />
+          </button>
+        </div>
       </div>
     </div>
     <div class="flex flex-col gap-2 mb-5">

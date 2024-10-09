@@ -19,7 +19,7 @@ export const useArticleStore = defineStore('article', () => {
     articles.value = newArticles;
   };
 
-  const setArticle = (newArticle: IArticleWithInfo) => {
+  const setArticle = (newArticle: IArticleWithInfo | null) => {
     article.value = newArticle;
   };
 

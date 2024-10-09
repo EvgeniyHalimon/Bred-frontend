@@ -10,3 +10,4 @@ export { default as NavigationComponent } from './NavigationComponent.vue';
 export { default as ModalWrapper } from './ModalWrapper.vue';
 export { default as CommentsComponent } from './CommentsComponent.vue';
 export { default as CommentsIcons } from './CommentsIcons.vue';
+export { default as ArticleIcons } from './ArticleIcons.vue';
