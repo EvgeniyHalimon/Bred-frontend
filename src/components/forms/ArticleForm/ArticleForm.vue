@@ -24,18 +24,23 @@ const { handleSubmit } = useForm({
 const { value: title } = useField<string>('title');
 const { value: text } = useField<string>('text');
 
-const goToProfile = () => {
-  router.push('/');
+const goToArticle = (id: string) => {
+  router.push({ name: 'article', params: { id } });
 };
 
 const onSubmit = handleSubmit(async (values: { text: string }) => {
   if (article.value) {
-    articleStore.patchArticle(values, article.value.id);
-    goToProfile();
-    return;
+    const { data } = await articleStore.patchArticle(values, article.value.id);
+    if (data) {
+      articleStore.updateArticle(data);
+      goToArticle(article.value.id);
+      return;
+    }
   }
-  articleStore.createArticle(values);
-  goToProfile();
+  const { data } = await articleStore.createArticle(values);
+  if (data) {
+    goToArticle(data.id);
+  }
 });
 </script>
 
@@ -54,7 +59,7 @@ const onSubmit = handleSubmit(async (values: { text: string }) => {
         @click="
           () => {
             if (article?.id) {
-              router.push({ name: 'article', params: { id: article.id } });
+              goToArticle(article.id);
               return;
             }
             router.push('/');

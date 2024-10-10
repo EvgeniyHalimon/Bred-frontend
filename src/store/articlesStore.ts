@@ -23,6 +23,18 @@ export const useArticleStore = defineStore('article', () => {
     article.value = newArticle;
   };
 
+  const updateArticle = (newArticle: IArticleWithInfo) => {
+    Object.assign(article, { ...article.value, ...newArticle });
+  };
+
+  const updateReactionsFromStore = (newArticle: IArticleWithInfo) => {
+    const index = articles.value.findIndex((article) => article.id === newArticle.id);
+
+    if (index !== -1) {
+      Object.assign(articles.value[index], { ...articles.value[index], ...newArticle });
+    }
+  };
+
   const fetchArticle = (id: string) => {
     return axiosWorker().get(`${GET_BY_ID}/${id}`);
   };
@@ -49,6 +61,8 @@ export const useArticleStore = defineStore('article', () => {
     getArticlesState,
     getArticleState,
     setArticles,
+    updateArticle,
+    updateReactionsFromStore,
     setArticle,
     fetchArticle,
     fetchArticles,

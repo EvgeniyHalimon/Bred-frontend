@@ -37,7 +37,7 @@ const createArticle = () => {
         v-if="user.photo"
         :src="user.photo"
         :alt="`${user.firstName}-avatar`"
-        class="object-cover w-full h-48"
+        class="object-cover w-full"
       />
       <div v-else class="flex items-center justify-center w-full h-48 bg-neutral-800">
         <span class="font-mono text-4xl text-lime-600">

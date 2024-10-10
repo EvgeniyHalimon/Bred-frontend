@@ -23,7 +23,7 @@ export const useCommentsStore = defineStore('comments', () => {
     comments.value = comments.value.filter((comment) => comment.id !== id);
   };
 
-  const updateCommentFromStore = (newComment: ICommentWithAuthor) => {
+  const updateCommentsFromStore = (newComment: ICommentWithAuthor) => {
     const index = comments.value.findIndex((comment) => comment.id === newComment.id);
 
     if (index !== -1) {
@@ -49,7 +49,7 @@ export const useCommentsStore = defineStore('comments', () => {
     comments,
     setComments,
     deleteCommentFromStore,
-    updateCommentFromStore,
+    updateCommentsFromStore,
     getComments,
     updateComments,
     deleteComment,

@@ -42,7 +42,7 @@ const onSubmit = handleSubmit(async (values: { text: string }) => {
   const result = await commentsStore.patchComment(values, props.comment.id);
   onEscape();
   if (result) {
-    commentsStore.updateCommentFromStore(result.data);
+    commentsStore.updateCommentsFromStore(result.data);
   }
 });
 </script>
