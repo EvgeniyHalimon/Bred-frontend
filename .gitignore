@@ -29,3 +29,4 @@ coverage
 
 *.tsbuildinfo
 .env
+docker-compose.yaml
