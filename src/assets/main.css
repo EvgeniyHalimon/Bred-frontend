@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.clip-path-custom {
+  clip-path: polygon(0 0%, 100% 0%, 100% 70%, 90% 100%, 0% 100%);
+}
+
+.article-clip-path {
+  transition: all;
+  transition-duration: 400ms;
+  &:hover {
+    clip-path: polygon(0 0%, 100% 0%, 100% 88%, 95% 100%, 0% 100%);
+  }
+}

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import { UserProfile, UserArticles } from '../components';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <UserProfile />
+    <UserArticles />
   </main>
 </template>
