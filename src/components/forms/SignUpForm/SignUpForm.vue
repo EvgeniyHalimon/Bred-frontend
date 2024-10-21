@@ -9,12 +9,6 @@ const inputType = ref('password');
 
 const authStore = useAuthStore();
 
-const { value: firstName } = useField<string>('firstName');
-const { value: lastName } = useField<string>('lastName');
-const { value: bio } = useField<string>('bio');
-const { value: email } = useField<string>('email');
-const { value: password } = useField<string>('password');
-
 const { handleSubmit } = useForm({
   validationSchema: SignUpValidationSchema,
   initialValues: {
@@ -25,6 +19,12 @@ const { handleSubmit } = useForm({
     password: ''
   }
 });
+
+const { value: firstName } = useField<string>('firstName');
+const { value: lastName } = useField<string>('lastName');
+const { value: bio } = useField<string>('bio');
+const { value: email } = useField<string>('email');
+const { value: password } = useField<string>('password');
 
 const onSubmit = handleSubmit((values: any) => {
   authStore.register(values);
