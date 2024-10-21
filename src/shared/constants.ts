@@ -1,5 +1,7 @@
-const apiUrl = import.meta.env.VITE_BASE_URL;
-export const BASE_URL = apiUrl;
+const prodUrl = import.meta.env.VITE_BASE_URL_PROD;
+const devUrl = import.meta.env.VITE_BASE_URL_DEV;
+const dev = import.meta.env.DEV;
+export const BASE_URL = dev ? devUrl : prodUrl;
 
 const routes = {
   AUTH: `${BASE_URL}/auth`,
