@@ -15,7 +15,7 @@ const deleteArticle = async () => {
   const { status } = await articleStore.deleteArticle(articleId.value);
   if (status === 200) {
     articleStore.setArticle(null);
-    router.push('/');
+    router.push('/home');
   }
 };
 </script>

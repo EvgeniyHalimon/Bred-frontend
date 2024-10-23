@@ -15,7 +15,7 @@ export default {
     const router = useRouter();
     onMounted(() => {
       if (authStore.accessToken) {
-        router.push('/');
+        router.push('/home');
       }
     });
     return {
