@@ -24,7 +24,7 @@ const { value: password } = useField<string>('password');
 const onSubmit = handleSubmit(async (values: any) => {
   const result = await authStore.login(values);
   if (result) {
-    router.push('/');
+    router.push('/home');
   }
 });
 </script>

@@ -16,7 +16,7 @@ const toggleMenu = () => {
 };
 
 const goToProfile = () => {
-  router.push('/');
+  router.push('/home');
 };
 
 const logout = () => {

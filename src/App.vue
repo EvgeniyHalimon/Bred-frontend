@@ -4,13 +4,36 @@ import NavigationComponent from './components/NavigationComponent.vue';
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 p-4 border-b-2 bg-neutral-900 border-lime-600">
-    <NavigationComponent />
-  </header>
+  <NavigationComponent />
 
   <main class="container p-6 mx-auto">
     <RouterView />
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+input[type='checkbox'] {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  outline: 1px solid #65a30d;
+  border-radius: 4px;
+  background-color: black;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type='checkbox']:checked {
+  background-color: #65a30d;
+}
+
+input[type='checkbox']:checked::after {
+  content: '✔';
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
+</style>
