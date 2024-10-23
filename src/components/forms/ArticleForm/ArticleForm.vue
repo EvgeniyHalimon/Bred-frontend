@@ -62,7 +62,7 @@ const onSubmit = handleSubmit(async (values: { text: string }) => {
               goToArticle(article.id);
               return;
             }
-            router.push('/');
+            router.push('/home');
           }
         "
         class="px-4 py-2 font-mono text-sm font-medium transition-all cursor-pointer hover:font-bold duration-400 clip-path-custom text-neutral-900 bg-lime-600 hover:bg-lime-500"
