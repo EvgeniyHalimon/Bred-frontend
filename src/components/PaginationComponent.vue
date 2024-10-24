@@ -20,9 +20,13 @@ const emit = defineEmits(['prevPage', 'nextPage', 'changePage']);
   >
     <button
       type="button"
-      :disabled="page === 1 ? true : false"
-      @click="$emit('prevPage')"
-      class="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-l-md border-lime-500"
+      :disabled="props.page === 1"
+      @click="() => $emit('prevPage')"
+      :class="[
+        'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer rounded-l-md border-lime-500',
+
+        props.page === 1 ? 'opacity-50 ' : 'hover:bg-lime-500 hover:text-black '
+      ]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -39,12 +43,18 @@ const emit = defineEmits(['prevPage', 'nextPage', 'changePage']);
       </svg>
     </button>
     <button
+      v-for="pageNum in count"
+      :key="pageNum"
       type="button"
-      aria-current="page"
-      @click="$emit('changePage', 1)"
-      class="inline-flex items-center px-4 py-2 text-sm font-semibold text-black border bg-lime-700 border-lime-500"
+      :aria-current="page === pageNum ? 'page' : undefined"
+      @click="$emit('changePage', pageNum)"
+      :class="[
+        'inline-flex items-center px-4 py-2 text-sm font-semibold text-black transition-all duration-500 border border-lime-500',
+        page === pageNum ? 'bg-lime-500' : 'bg-lime-700',
+        'hover:bg-lime-500'
+      ]"
     >
-      1
+      {{ pageNum }}
     </button>
 
     <button
@@ -56,9 +66,12 @@ const emit = defineEmits(['prevPage', 'nextPage', 'changePage']);
 
     <button
       type="button"
-      :disabled="page === 1 ? true : false"
+      :disabled="props.page === props.count"
       @click="$emit('nextPage')"
-      class="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-r-md border-lime-500"
+      :class="[
+        'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer rounded-r-md border-lime-500',
+        props.page === props.count ? 'opacity-50 ' : 'hover:bg-lime-500 hover:text-black'
+      ]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

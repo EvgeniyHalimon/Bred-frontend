@@ -8,15 +8,15 @@ const articlesStore = useArticleStore();
 const userStore = useUserStore();
 const authorId = userStore.userId;
 
-const page = ref(1);
-const limit = ref(10);
+const count = ref(0);
 
 const articleParams = reactive({
-  page: page.value,
-  limit: limit.value,
+  page: 1,
+  limit: 10,
   order: 'ASC' as OrderType,
   orderBy: 'rating'
 });
+console.log('🚀 ~ file: UserArticles.vue:14 ~ articleParams:', articleParams);
 
 const { articles } = toRefs(articlesStore);
 
@@ -27,10 +27,12 @@ const getArticles = async () => {
   });
   if (data.articles) {
     articlesStore.setArticles(data.articles);
+    count.value = data.count;
   }
 };
 
 const changePage = (newPage: number) => {
+  if (articleParams.page === newPage) return;
   articleParams.page = newPage;
 };
 
@@ -59,6 +61,14 @@ watch(
   },
   { deep: true }
 );
+
+watch(
+  user,
+  () => {
+    getArticles();
+  },
+  { deep: true }
+);
 </script>
 
 <template>
@@ -66,8 +76,8 @@ watch(
     <ArticleItem :articles="articles" />
   </div>
   <PaginationComponent
-    :page="page"
-    :count="1"
+    :page="articleParams.page"
+    :count="Math.ceil(count / articleParams.limit)"
     v-on:next-page="nextPage"
     v-on:prev-page="prevPage"
     v-on:change-page="changePage"
