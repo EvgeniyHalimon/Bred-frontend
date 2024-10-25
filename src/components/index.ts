@@ -11,3 +11,4 @@ export { default as ModalWrapper } from './ModalWrapper.vue';
 export { default as CommentsComponent } from './CommentsComponent.vue';
 export { default as CommentsIcons } from './CommentsIcons.vue';
 export { default as ArticleIcons } from './ArticleIcons.vue';
+export { default as PaginationComponent } from './PaginationComponent.vue';
