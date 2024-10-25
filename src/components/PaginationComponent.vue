@@ -38,8 +38,8 @@ watch([() => props.page, () => props.count], getRelevantPages);
   >
     <button
       type="button"
-      :disabled="props.page === props.count"
-      @click="$emit('nextPage')"
+      :disabled="props.page === 1"
+      @click="$emit('changePage', 1)"
       :class="[
         'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer rounded-l-md border-lime-500',
 
@@ -53,7 +53,7 @@ watch([() => props.page, () => props.count], getRelevantPages);
       :disabled="props.page === 1"
       @click="() => $emit('prevPage')"
       :class="[
-        'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer rounded-l-md border-lime-500',
+        'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer  border-lime-500',
 
         props.page === 1 ? 'opacity-50 ' : 'hover:bg-lime-500 hover:text-black '
       ]"
@@ -81,7 +81,7 @@ watch([() => props.page, () => props.count], getRelevantPages);
       :disabled="props.page === props.count"
       @click="$emit('nextPage')"
       :class="[
-        'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer rounded-r-md border-lime-500',
+        'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer  border-lime-500',
         props.page === props.count ? 'opacity-50 ' : 'hover:bg-lime-500 hover:text-black'
       ]"
     >
@@ -91,7 +91,7 @@ watch([() => props.page, () => props.count], getRelevantPages);
     <button
       type="button"
       :disabled="props.page === props.count"
-      @click="$emit('nextPage')"
+      @click="$emit('changePage', props.count)"
       :class="[
         'transition-all duration-500 inline-flex items-center px-2 py-2 text-sm font-semibold border cursor-pointer rounded-r-md border-lime-500',
         props.page === props.count ? 'opacity-50 ' : 'hover:bg-lime-500 hover:text-black'
