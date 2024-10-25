@@ -16,7 +16,6 @@ const articleParams = reactive({
   order: 'ASC' as OrderType,
   orderBy: 'rating'
 });
-console.log('🚀 ~ file: UserArticles.vue:14 ~ articleParams:', articleParams);
 
 const { articles } = toRefs(articlesStore);
 
@@ -53,14 +52,6 @@ watchEffect(() => {
 });
 
 const { user } = toRefs(userStore);
-
-watch(
-  user,
-  () => {
-    getArticles();
-  },
-  { deep: true }
-);
 
 watch(
   user,
