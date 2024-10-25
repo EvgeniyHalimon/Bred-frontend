@@ -31,14 +31,13 @@ const axiosWorker = () => {
     return axiosInstance.put(`${url}`, data, { params });
   };
 
-  const patch = (url: string, data: any, params?: any): Promise<any> => {
+  const patch = (url: string, data: any): Promise<any> => {
     const headers =
       data instanceof FormData
         ? { 'Content-Type': 'multipart/form-data' }
         : { 'Content-Type': 'application/json' };
 
     return axiosInstance.patch(`${url}`, data, {
-      params,
       headers
     });
   };
