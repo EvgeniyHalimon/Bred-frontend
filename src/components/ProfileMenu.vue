@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore, useUserStore } from '@/store';
 import { getInitials } from '@/shared/utils';
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
 const userStore = useUserStore();
 const { user } = toRefs(userStore);
@@ -17,6 +18,12 @@ const toggleMenu = () => {
 
 const goToProfile = () => {
   router.push('/home');
+};
+
+const createArticlePath = '/article/create';
+
+const goToCreateArticle = () => {
+  router.push(createArticlePath);
 };
 
 const logout = () => {
@@ -50,6 +57,14 @@ const logout = () => {
         data-text="Profile"
       >
         Profile
+      </li>
+      <li
+        v-if="createArticlePath !== route.fullPath"
+        @click="goToCreateArticle"
+        class="p-2 mb-1 transition-all cursor-pointer text-lime-600 hover:bg-lime-600 hover:text-black"
+        data-text="Profile"
+      >
+        Create article
       </li>
       <li
         @click="logout"

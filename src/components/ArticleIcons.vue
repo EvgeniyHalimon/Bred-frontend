@@ -25,7 +25,7 @@ const deleteArticle = async () => {
     <button
       @mouseenter="isEditHovering = true"
       @mouseleave="isEditHovering = false"
-      @click="() => router.push('/article/action')"
+      @click="() => router.push('/article/create')"
     >
       <Icon
         :icon="isEditHovering ? 'mdi:pencil' : 'mdi:pencil-outline'"

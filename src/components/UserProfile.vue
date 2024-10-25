@@ -26,7 +26,7 @@ const closeModal = () => {
 
 const createArticle = () => {
   articleStore.setArticle(null);
-  router.push('/article/action');
+  router.push('/article/create');
 };
 </script>
 

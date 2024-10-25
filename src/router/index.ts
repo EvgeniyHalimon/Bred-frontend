@@ -32,8 +32,8 @@ const router = createRouter({
       component: ArticleView
     },
     {
-      path: '/article/action',
-      name: 'article/action',
+      path: '/article/create',
+      name: 'article/create',
       component: CreateOrUpdateArticleView
     }
   ]
