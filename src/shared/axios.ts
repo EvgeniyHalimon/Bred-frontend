@@ -6,7 +6,6 @@ import {
   getRefreshToken,
   removeUserDataFromLocalStorage
 } from './tokenWorkshop';
-
 const axiosWorker = () => {
   const accessToken = getAccessToken();
   const refreshToken = getRefreshToken();
@@ -70,7 +69,6 @@ const axiosWorker = () => {
       if (err.response.status === 401 && getRefreshToken()) {
         try {
           const response = await get(routesByModule.AUTH.REFRESH);
-          console.log('🚀 ~ file: axios.ts:69 ~ response:', response);
           requestCount++;
 
           if (response?.status === 200) {

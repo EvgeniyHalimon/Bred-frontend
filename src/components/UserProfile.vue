@@ -4,7 +4,6 @@ import { getInitials } from '@/shared/utils';
 import { ref, toRefs } from 'vue';
 import { ModalWrapper, UpdateUserForm } from '.';
 import { useRouter } from 'vue-router';
-import { Icon } from '@iconify/vue';
 
 const router = useRouter();
 
