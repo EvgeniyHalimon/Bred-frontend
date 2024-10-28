@@ -4,8 +4,7 @@ import {
   getAccessToken,
   saveTokens,
   getRefreshToken,
-  removeTokens,
-  removeUserFromLocalStorage
+  removeUserDataFromLocalStorage
 } from './tokenWorkshop';
 
 const axiosWorker = () => {
@@ -48,8 +47,7 @@ const axiosWorker = () => {
 
   let requestCount = 0;
   if (requestCount > 1) {
-    removeTokens();
-    removeUserFromLocalStorage();
+    removeUserDataFromLocalStorage();
     return {
       get,
       post,
@@ -63,11 +61,16 @@ const axiosWorker = () => {
       return res;
     },
     async (err) => {
+      if (err.response.status === 401 && err.config.url === routesByModule.AUTH.REFRESH) {
+        removeUserDataFromLocalStorage();
+      }
+
       const originalRequest = err.config;
       axiosInstance.defaults.headers['Authorization'] = `Bearer ${refreshToken}`;
       if (err.response.status === 401 && getRefreshToken()) {
         try {
           const response = await get(routesByModule.AUTH.REFRESH);
+          console.log('🚀 ~ file: axios.ts:69 ~ response:', response);
           requestCount++;
 
           if (response?.status === 200) {
@@ -81,10 +84,17 @@ const axiosWorker = () => {
               }
             });
           }
+
+          if (
+            response?.statusCode === 401 ||
+            response?.status === 401 ||
+            err.response.status === 401
+          ) {
+            removeUserDataFromLocalStorage();
+          }
         } catch (error: any) {
           if (error.response && error.response.data) {
-            removeTokens();
-            removeUserFromLocalStorage();
+            removeUserDataFromLocalStorage();
             return error.response.data;
           }
         }

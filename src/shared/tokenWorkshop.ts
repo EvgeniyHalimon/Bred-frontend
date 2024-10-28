@@ -53,3 +53,8 @@ export const getUserFromLocalStorage = () => {
 export const removeUserFromLocalStorage = () => {
   storageWrapper('remove', keys.user);
 };
+
+export const removeUserDataFromLocalStorage = () => {
+  removeTokens();
+  removeUserFromLocalStorage();
+};
