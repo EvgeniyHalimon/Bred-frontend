@@ -4,7 +4,6 @@ import { getInitials } from '@/shared/utils';
 import { ref, toRefs } from 'vue';
 import { ModalWrapper, UpdateUserForm } from '.';
 import { useRouter } from 'vue-router';
-import { Icon } from '@iconify/vue';
 
 const router = useRouter();
 
@@ -31,13 +30,13 @@ const createArticle = () => {
 </script>
 
 <template>
-  <div v-if="user" class="max-w-md mx-auto overflow-hidden border-2 border-lime-600 bg-neutral-900">
-    <div class="relative" @click="createArticle">
+  <div v-if="user" class="mx-auto overflow-hidden border-2 w-96 border-lime-600 bg-neutral-900">
+    <div class="relative pt-6" @click="createArticle">
       <img
         v-if="user.photo"
         :src="user.photo"
         :alt="`${user.firstName}-avatar`"
-        class="object-cover w-full"
+        class="object-cover w-1/2 mx-auto rounded-full"
       />
       <div v-else class="flex items-center justify-center w-full h-48 bg-neutral-800">
         <span class="font-mono text-4xl text-lime-600">
@@ -64,9 +63,9 @@ const createArticle = () => {
 
         <button
           @click="createArticle"
-          class="flex w-full gap-2 px-4 py-2 font-mono text-sm font-medium transition-all cursor-pointer hover:font-bold duration-400 clip-path-custom text-neutral-900 bg-lime-600 hover:bg-lime-500"
+          class="w-full px-4 py-2 font-mono text-sm font-medium transition-all cursor-pointer hover:font-bold duration-400 clip-path-custom text-neutral-900 bg-lime-600 hover:bg-lime-500"
         >
-          <Icon icon="mdi:newspaper-variant-multiple" /> <span>Create article</span>
+          Create article
         </button>
       </div>
 

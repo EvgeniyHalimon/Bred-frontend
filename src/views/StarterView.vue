@@ -38,7 +38,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-center mb-6 text-lime-600">
+  <div class="flex justify-center gap-2 mb-6 text-lime-600">
     <div class="relative w-60 h-60">
       <Icon icon="mdi:alpha-b-box-outline" class="absolute fade-icon w-60 h-60" />
       <Icon icon="mdi:alpha-b-box" class="absolute fade-icon w-60 h-60" />

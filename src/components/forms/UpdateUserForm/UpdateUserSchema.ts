@@ -20,8 +20,7 @@ export const UpdateUserSchema = yup.object().shape({
     .string()
     .min(userFieldLengths.bio.min, `Minimum ${userFieldLengths.bio.min} characters required`)
     .max(userFieldLengths.bio.max, `Maximum ${userFieldLengths.bio.max} characters required`)
-    .required('Bio is required'),
-  file: yup.mixed().nullable()
+    .required('Bio is required')
 });
 
 export default UpdateUserSchema;
