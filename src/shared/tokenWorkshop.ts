@@ -1,3 +1,4 @@
+import router from '@/router';
 import type { ITokens, IUser } from './types';
 
 const isBrowser = typeof window !== 'undefined';
@@ -52,4 +53,10 @@ export const getUserFromLocalStorage = () => {
 
 export const removeUserFromLocalStorage = () => {
   storageWrapper('remove', keys.user);
+};
+
+export const removeUserDataFromLocalStorage = () => {
+  removeTokens();
+  removeUserFromLocalStorage();
+  router.push('/auth');
 };

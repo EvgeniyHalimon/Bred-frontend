@@ -4,8 +4,7 @@ import axiosWorker from '../shared/axios';
 import {
   getAccessToken,
   getRefreshToken,
-  removeTokens,
-  removeUserFromLocalStorage,
+  removeUserDataFromLocalStorage,
   saveTokens,
   setUserInLocalStorage
 } from '../shared/tokenWorkshop';
@@ -44,8 +43,7 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const logout = () => {
-    removeTokens();
-    removeUserFromLocalStorage();
+    removeUserDataFromLocalStorage();
     accessToken.value = '';
     refreshToken.value = '';
   };
