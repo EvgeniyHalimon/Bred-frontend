@@ -128,13 +128,6 @@ const handleDragLeave = () => {
       @dragleave="handleDragLeave"
       @drop="handleDrop"
     >
-      <!-- <img
-        v-if="photoPreview"
-        :src="photoPreview"
-        :alt="`${firstName}-${lastName}-avatar-preview`"
-        class="object-cover mb-4 rounded-full w-14 h-14"
-      /> -->
-
       <img
         v-if="user && user.photo && !photoPreview"
         :src="user.photo"
@@ -150,9 +143,9 @@ const handleDragLeave = () => {
         </span>
       </div>
 
-      <div v-if="photoPreview" class="my-4">
+      <div v-if="photoPreview" class="my-4 w-80 mix-blend-difference">
         <Cropper
-          class="cropper"
+          class="object-cover w-auto h-48 cropper"
           :src="photoPreview"
           :stencil-props="{ aspectRatio: 1 / 1 }"
           @change="changeCrop"
