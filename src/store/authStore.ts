@@ -9,8 +9,7 @@ import {
   setUserInLocalStorage
 } from '../shared/tokenWorkshop';
 import { routesByModule } from '../shared/constants';
-import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
-import { showSuccessNotification } from '@/shared/notifications';
+import { tryCatchWrapper, showSuccessNotification } from '@/shared';
 
 const {
   AUTH: { LOGIN, REGISTER }

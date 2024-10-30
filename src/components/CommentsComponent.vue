@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ICommentWithAuthor } from '@/shared/types';
 import { defineProps } from 'vue';
 import type { PropType } from 'vue';
+import type { ICommentWithAuthor } from '@/shared';
 import { CommentItem } from '.';
 
 defineProps({

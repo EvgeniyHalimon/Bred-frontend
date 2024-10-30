@@ -2,7 +2,7 @@
 import { ref, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useArticleStore, useAuthStore, useUserStore } from '@/store';
-import { getInitials } from '@/shared/utils';
+import { getInitials } from '@/shared';
 
 const router = useRouter();
 const route = useRoute();

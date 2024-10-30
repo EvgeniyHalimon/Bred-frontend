@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { Icon } from '@iconify/vue';
 import { ErrorMessage, useField, useForm } from 'vee-validate';
 import CreateCommentSchema from './CreateCommentSchema';
 import { useCommentsStore } from '@/store';
-import { useRoute } from 'vue-router';
-import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
-import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
+import { tryCatchWrapper } from '@/shared';
 
 const isHovered = ref(false);
 

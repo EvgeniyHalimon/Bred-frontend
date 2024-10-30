@@ -6,10 +6,7 @@ import UpdateUserSchema from './UpdateUserSchema';
 import { useUserStore } from '@/store';
 import CustomInput from '@/components/CustomInput.vue';
 import { Cropper } from 'vue-advanced-cropper';
-import type { IUser } from '@/shared/types';
-import { getInitials } from '@/shared/utils';
-import { showSuccessNotification } from '@/shared/notifications';
-import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
+import { tryCatchWrapper, type IUser, showSuccessNotification, getInitials } from '@/shared';
 
 const userStore = useUserStore();
 const { user } = toRefs(userStore);

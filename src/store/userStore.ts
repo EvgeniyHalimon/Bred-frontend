@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 import type { IUser } from '../shared/types';
 import axiosWorker from '../shared/axios';
 import { routesByModule } from '../shared/constants';
-import { getUserFromLocalStorage, setUserInLocalStorage } from '@/shared/tokenWorkshop';
+import { getUserFromLocalStorage, setUserInLocalStorage } from '@/shared';
 
 const {
   USERS: { PATCH, GET_ALL }

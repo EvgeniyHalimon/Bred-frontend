@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useArticleStore } from '@/store';
 import { useRoute, useRouter } from 'vue-router';
-import { showSuccessNotification } from '@/shared/notifications';
+import { showSuccessNotification } from '@/shared';
 
 const isEditHovering = ref(false);
 const isDeleteHovering = ref(false);

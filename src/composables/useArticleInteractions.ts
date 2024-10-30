@@ -1,7 +1,6 @@
-import { useArticleStore, useCommentsStore, useReactionsStore, useUserStore } from '@/store';
 import { computed, toRefs } from 'vue';
-import { ReactionTypeEnum, SourceTypeEnum, type ReactionType } from '@/shared/types';
-import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
+import { type ReactionType, SourceTypeEnum, ReactionTypeEnum, tryCatchWrapper } from '@/shared';
+import { useArticleStore, useCommentsStore, useReactionsStore, useUserStore } from '@/store';
 
 export function useArticleInteractions(articleId: string) {
   const articleStore = useArticleStore();

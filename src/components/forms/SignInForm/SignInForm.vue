@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useField, useForm } from 'vee-validate';
-import SignInValidationSchema from './SignInValidationSchema';
-import { CustomInput } from '../../../components';
-import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
-import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
+import SignInValidationSchema from './SignInValidationSchema';
+import { CustomInput } from '@/components';
+import { useAuthStore } from '@/store/authStore';
+import { tryCatchWrapper } from '@/shared';
 
 const inputType = ref('password');
 const router = useRouter();

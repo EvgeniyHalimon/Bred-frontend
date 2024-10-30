@@ -1,13 +1,12 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { CreateArticleSchema } from './CreateArticleSchema';
 import { useArticleStore } from '@/store';
 import { toRefs } from 'vue';
-import { CreateArticleSchema } from './CreateArticleSchema';
 import { ErrorMessage, useField, useForm } from 'vee-validate';
 import { PatchArticleSchema } from './PatchArticleSchema';
 import { CustomInput } from '@/components';
-import { useRouter } from 'vue-router';
-import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
-import { showSuccessNotification } from '@/shared/notifications';
+import { tryCatchWrapper, showSuccessNotification } from '@/shared';
 
 interface ArticleValues {
   text: string;
