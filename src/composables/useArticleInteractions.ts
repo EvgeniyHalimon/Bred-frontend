@@ -1,6 +1,7 @@
 import { useArticleStore, useCommentsStore, useReactionsStore, useUserStore } from '@/store';
 import { computed, toRefs } from 'vue';
 import { ReactionTypeEnum, SourceTypeEnum, type ReactionType } from '@/shared/types';
+import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
 
 export function useArticleInteractions(articleId: string) {
   const articleStore = useArticleStore();
@@ -48,6 +49,19 @@ export function useArticleInteractions(articleId: string) {
     }
   };
 
+  const updateReaction = async (
+    reactionType: ReactionTypeEnum.UPVOTE | ReactionTypeEnum.DOWNVOTE,
+    oppositeReactionId: string
+  ) => {
+    const { data } = await reactionsStore.patchReaction(
+      { reactionType, ...reactionBody },
+      oppositeReactionId
+    );
+    if (data) {
+      reactionsStore.updateReactionFromStore(oppositeReactionId, reactionType);
+    }
+  };
+
   const deleteReaction = async (reactionId: string) => {
     const { status } = await reactionsStore.deleteReaction(reactionId);
     if (status === 200) {
@@ -65,17 +79,11 @@ export function useArticleInteractions(articleId: string) {
     const oppositeReactionId = getReactionId(oppositeReactionType);
 
     if (!currentReactionId && !oppositeReactionId) {
-      await createReaction(reactionType);
+      await tryCatchWrapper(() => createReaction(reactionType));
     } else if (oppositeReactionId) {
-      const { data } = await reactionsStore.patchReaction(
-        { reactionType, ...reactionBody },
-        oppositeReactionId
-      );
-      if (data) {
-        reactionsStore.updateReactionFromStore(oppositeReactionId, reactionType);
-      }
+      await tryCatchWrapper(() => updateReaction(reactionType, oppositeReactionId));
     } else if (currentReactionId) {
-      await deleteReaction(currentReactionId);
+      await tryCatchWrapper(() => deleteReaction(currentReactionId));
     }
   };
 

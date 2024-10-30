@@ -5,6 +5,7 @@ import SignInValidationSchema from './SignInValidationSchema';
 import { CustomInput } from '../../../components';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
+import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
 
 const inputType = ref('password');
 const router = useRouter();
@@ -22,10 +23,12 @@ const { value: email } = useField<string>('email');
 const { value: password } = useField<string>('password');
 
 const onSubmit = handleSubmit(async (values: any) => {
-  const result = await authStore.login(values);
-  if (result) {
-    router.push('/home');
-  }
+  await tryCatchWrapper(async () => {
+    const result = await authStore.login(values);
+    if (result) {
+      router.push('/home');
+    }
+  });
 });
 </script>
 

@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import 'vue-advanced-cropper/dist/style.css';
 import { ref, toRefs } from 'vue';
 import { useField, useForm } from 'vee-validate';
 import UpdateUserSchema from './UpdateUserSchema';
 import { useUserStore } from '@/store';
 import CustomInput from '@/components/CustomInput.vue';
 import { Cropper } from 'vue-advanced-cropper';
-import 'vue-advanced-cropper/dist/style.css';
-
 import type { IUser } from '@/shared/types';
 import { getInitials } from '@/shared/utils';
+import { showSuccessNotification } from '@/shared/notifications';
+import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
 
 const userStore = useUserStore();
 const { user } = toRefs(userStore);
@@ -47,10 +48,13 @@ const onSubmit = handleSubmit(async (values) => {
     formData.append('file', croppedImage.value);
   }
 
-  const { data } = await userStore.patchUser(formData as Partial<IUser>);
-  if (data) {
-    userStore.setUser(data);
-  }
+  await tryCatchWrapper(async () => {
+    const { data } = await userStore.patchUser(formData as Partial<IUser>);
+    if (data) {
+      showSuccessNotification('User updated successfully.');
+      userStore.setUser(data);
+    }
+  });
 });
 
 const handleFileChange = ($event: Event) => {

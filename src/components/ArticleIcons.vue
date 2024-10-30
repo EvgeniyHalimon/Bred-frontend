@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useArticleStore } from '@/store';
 import { useRoute, useRouter } from 'vue-router';
+import { showSuccessNotification } from '@/shared/notifications';
 
 const isEditHovering = ref(false);
 const isDeleteHovering = ref(false);
@@ -12,8 +13,9 @@ const articleId = ref(route.params.id as string);
 const articleStore = useArticleStore();
 const router = useRouter();
 const deleteArticle = async () => {
-  const { status } = await articleStore.deleteArticle(articleId.value);
+  const { data, status } = await articleStore.deleteArticle(articleId.value);
   if (status === 200) {
+    showSuccessNotification(data.message);
     articleStore.setArticle(null);
     router.push('/home');
   }
@@ -23,6 +25,7 @@ const createArticlePath = '/article/create';
 
 const goToCreateArticle = () => {
   articleStore.setArticle(null);
+
   router.push(createArticlePath);
 };
 </script>

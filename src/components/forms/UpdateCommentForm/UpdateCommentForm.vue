@@ -6,6 +6,7 @@ import { useCommentsStore } from '@/store';
 import { ErrorMessage, useField, useForm } from 'vee-validate';
 import CreateCommentSchema from '../CommentForm/CreateCommentSchema';
 import { Icon } from '@iconify/vue';
+import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
 
 const props = defineProps({
   comment: {
@@ -39,11 +40,13 @@ const onEscape = () => {
 };
 
 const onSubmit = handleSubmit(async (values: { text: string }) => {
-  const result = await commentsStore.patchComment(values, props.comment.id);
-  onEscape();
-  if (result) {
-    commentsStore.updateCommentsFromStore(result.data);
-  }
+  tryCatchWrapper(async () => {
+    const result = await commentsStore.patchComment(values, props.comment.id);
+    onEscape();
+    if (result) {
+      commentsStore.updateCommentsFromStore(result.data);
+    }
+  });
 });
 </script>
 

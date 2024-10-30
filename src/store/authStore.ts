@@ -9,6 +9,8 @@ import {
   setUserInLocalStorage
 } from '../shared/tokenWorkshop';
 import { routesByModule } from '../shared/constants';
+import { tryCatchWrapper } from '@/shared/tryCatchWrapper';
+import { showSuccessNotification } from '@/shared/notifications';
 
 const {
   AUTH: { LOGIN, REGISTER }
@@ -39,7 +41,14 @@ export const useAuthStore = defineStore('auth', () => {
     password: string;
     bio: string;
   }) => {
-    await axiosWorker().post(REGISTER, values);
+    tryCatchWrapper(async () => {
+      const { data } = await axiosWorker().post(REGISTER, values);
+      if (data) {
+        showSuccessNotification(
+          'The user was created successfully, check your email to verify your account'
+        );
+      }
+    });
   };
 
   const logout = () => {
