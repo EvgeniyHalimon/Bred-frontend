@@ -21,7 +21,10 @@ const authStore = useAuthStore();
           <Icon icon="mdi:alpha-e-box-outline" class="text-3xl" />
           <Icon icon="mdi:alpha-d-box" class="text-3xl" />
         </div>
-        <ul class="flex gap-8" v-if="route.path !== '/auth' && authStore.accessToken">
+        <ul
+          class="flex gap-8"
+          v-if="route.path !== '/auth' && authStore.accessToken && route.name !== 'confirm'"
+        >
           <li>
             <RouterLink
               to="/home"
@@ -42,7 +45,9 @@ const authStore = useAuthStore();
           </li>
         </ul>
       </div>
-      <ProfileMenu v-if="route.path !== '/auth' && authStore.accessToken" />
+      <ProfileMenu
+        v-if="route.path !== '/auth' && authStore.accessToken && route.name !== 'confirm'"
+      />
     </nav>
   </header>
 </template>
