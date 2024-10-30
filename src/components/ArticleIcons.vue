@@ -18,6 +18,13 @@ const deleteArticle = async () => {
     router.push('/home');
   }
 };
+
+const createArticlePath = '/article/create';
+
+const goToCreateArticle = () => {
+  articleStore.setArticle(null);
+  router.push(createArticlePath);
+};
 </script>
 
 <template>
@@ -25,7 +32,7 @@ const deleteArticle = async () => {
     <button
       @mouseenter="isEditHovering = true"
       @mouseleave="isEditHovering = false"
-      @click="() => router.push('/article/create')"
+      @click="goToCreateArticle"
     >
       <Icon
         :icon="isEditHovering ? 'mdi:pencil' : 'mdi:pencil-outline'"
