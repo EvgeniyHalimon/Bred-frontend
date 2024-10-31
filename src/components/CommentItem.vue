@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { ICommentWithAuthor } from '@/shared/types';
-import { formatDate, getInitials } from '@/shared/utils';
-import { defineProps, ref } from 'vue';
-import type { PropType } from 'vue';
+import { defineProps, ref, type PropType } from 'vue';
+import { formatDate, getInitials, type ICommentWithAuthor } from '@/shared';
 import { CommentsIcons, UpdateCommentForm } from '.';
 import { useUserStore } from '@/store';
 

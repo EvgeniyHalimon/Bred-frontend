@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { CreateArticleSchema } from './CreateArticleSchema';
 import { useArticleStore } from '@/store';
 import { toRefs } from 'vue';
-import { CreateArticleSchema } from './CreateArticleSchema';
 import { ErrorMessage, useField, useForm } from 'vee-validate';
 import { PatchArticleSchema } from './PatchArticleSchema';
 import { CustomInput } from '@/components';
-import { useRouter } from 'vue-router';
+import { tryCatchWrapper, showSuccessNotification } from '@/shared';
+
+interface ArticleValues {
+  text: string;
+}
 
 const router = useRouter();
 const articleStore = useArticleStore();
@@ -28,18 +33,29 @@ const goToArticle = (id: string) => {
   router.push({ name: 'article', params: { id } });
 };
 
-const onSubmit = handleSubmit(async (values: { text: string }) => {
-  if (article.value) {
-    const { data } = await articleStore.patchArticle(values, article.value.id);
-    if (data) {
-      articleStore.updateArticle(data);
-      goToArticle(article.value.id);
-      return;
-    }
+const patchArticle = async (values: ArticleValues, id: string) => {
+  const { data } = await articleStore.patchArticle(values, id);
+  if (data) {
+    articleStore.updateArticle(data);
+
+    goToArticle(id);
   }
+};
+
+const createArticle = async (values: ArticleValues) => {
   const { data } = await articleStore.createArticle(values);
   if (data) {
+    showSuccessNotification('Article successfully created.');
     goToArticle(data.id);
+  }
+};
+
+const onSubmit = handleSubmit(async (values: ArticleValues) => {
+  if (article.value) {
+    const { id } = article.value;
+    await tryCatchWrapper(() => patchArticle(values, id));
+  } else {
+    await tryCatchWrapper(() => createArticle(values));
   }
 });
 </script>

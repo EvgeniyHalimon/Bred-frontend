@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { ArticleView, ArticlesView, AuthView, HomeView } from '../views';
+import { ArticleView, ArticlesView, AuthView, ConfirmView, HomeView } from '@/views';
 import CreateOrUpdateArticleView from '@/views/CreateOrUpdateArticleView.vue';
 import StarterView from '@/views/StarterView.vue';
 
@@ -35,6 +35,11 @@ const router = createRouter({
       path: '/article/create',
       name: 'article/create',
       component: CreateOrUpdateArticleView
+    },
+    {
+      path: '/confirm/:token',
+      name: 'confirm',
+      component: ConfirmView
     }
   ]
 });

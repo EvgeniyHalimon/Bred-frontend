@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useArticleStore, useUserStore } from '@/store';
-import { getInitials } from '@/shared/utils';
 import { ref, toRefs } from 'vue';
-import { ModalWrapper, UpdateUserForm } from '.';
 import { useRouter } from 'vue-router';
+import { useArticleStore, useUserStore } from '@/store';
+import { getInitials } from '@/shared';
+import { ModalWrapper, UpdateUserForm } from '.';
 
 const router = useRouter();
 

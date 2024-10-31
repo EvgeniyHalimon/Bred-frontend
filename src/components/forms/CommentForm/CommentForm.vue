@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { Icon } from '@iconify/vue';
 import { ErrorMessage, useField, useForm } from 'vee-validate';
 import CreateCommentSchema from './CreateCommentSchema';
 import { useCommentsStore } from '@/store';
-import { useRoute } from 'vue-router';
-import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
+import { tryCatchWrapper } from '@/shared';
 
 const isHovered = ref(false);
 
@@ -22,14 +23,16 @@ const { handleSubmit } = useForm({
 const { value: text } = useField<string>('text');
 
 const onSubmit = handleSubmit(async (values: { text: string }) => {
-  const result = await commentsStore.createComment({
-    ...values,
-    articleId: route.params.id as string
+  await tryCatchWrapper(async () => {
+    const result = await commentsStore.createComment({
+      ...values,
+      articleId: route.params.id as string
+    });
+    text.value = '';
+    if (result) {
+      commentsStore.updateComments(result.data);
+    }
   });
-  text.value = '';
-  if (result) {
-    commentsStore.updateComments(result.data);
-  }
 });
 </script>
 

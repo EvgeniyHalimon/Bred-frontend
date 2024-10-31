@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { useAuthStore, useUserStore } from '@/store';
-import { getInitials } from '@/shared/utils';
+import { useArticleStore, useAuthStore, useUserStore } from '@/store';
+import { getInitials } from '@/shared';
 
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore();
 const userStore = useUserStore();
+const articleStore = useArticleStore();
 const { user } = toRefs(userStore);
 
 const isMenuOpen = ref(false);
@@ -23,6 +24,7 @@ const goToProfile = () => {
 const createArticlePath = '/article/create';
 
 const goToCreateArticle = () => {
+  articleStore.setArticle(null);
   router.push(createArticlePath);
 };
 

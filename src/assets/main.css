@@ -13,3 +13,19 @@
     clip-path: polygon(0 0%, 100% 0%, 100% 88%, 95% 100%, 0% 100%);
   }
 }
+
+.notification-clip-path {
+  clip-path: polygon(0 0%, 100% 0%, 100% 80%, 95% 100%, 0% 100%);
+  font-family: monospace !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: black !important;
+}
+
+.success-notification {
+  background-color: #65a30d !important;
+}
+
+.failure-notification {
+  background-color: rgb(220 38 38) !important;
+}
