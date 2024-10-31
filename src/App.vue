@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { RouterView, useRouter } from 'vue-router';
+import { RouterView, useRoute, useRouter } from 'vue-router';
 import NavigationComponent from './components/NavigationComponent.vue';
 import { onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/store';
 const authStore = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 const { accessToken } = toRefs(authStore);
 onMounted(() => {
-  if (!accessToken.value) {
+  if (!accessToken.value && route.name !== 'confirm') {
     router.push('/auth');
   }
 });
