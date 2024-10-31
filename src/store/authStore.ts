@@ -9,9 +9,10 @@ import {
   setUserInLocalStorage
 } from '../shared/tokenWorkshop';
 import { routesByModule } from '../shared/constants';
+import { tryCatchWrapper, showSuccessNotification } from '@/shared';
 
 const {
-  AUTH: { LOGIN, REGISTER }
+  AUTH: { LOGIN, REGISTER, CONFIRM }
 } = routesByModule;
 
 export const useAuthStore = defineStore('auth', () => {
@@ -39,13 +40,29 @@ export const useAuthStore = defineStore('auth', () => {
     password: string;
     bio: string;
   }) => {
-    await axiosWorker().post(REGISTER, values);
+    tryCatchWrapper(async () => {
+      const { data } = await axiosWorker().post(REGISTER, values);
+      if (data) {
+        showSuccessNotification(
+          'The user was created successfully, check your email to verify your account'
+        );
+      }
+    });
   };
 
   const logout = () => {
     removeUserDataFromLocalStorage();
     accessToken.value = '';
     refreshToken.value = '';
+  };
+
+  const confirm = async (token: string) => {
+    tryCatchWrapper(async () => {
+      const { data } = await axiosWorker().get(`${CONFIRM}/${token}`);
+      if (data) {
+        showSuccessNotification(data.message);
+      }
+    });
   };
 
   watch([accessToken, refreshToken], ([newAccessToken, newRefreshToken]) => {
@@ -60,6 +77,7 @@ export const useAuthStore = defineStore('auth', () => {
     isLoggedIn,
     login,
     register,
+    confirm,
     logout
   };
 });

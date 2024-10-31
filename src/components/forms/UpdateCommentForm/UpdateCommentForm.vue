@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { ICommentWithAuthor } from '@/shared/types';
-import { defineProps, ref } from 'vue';
-import type { PropType } from 'vue';
-import { useCommentsStore } from '@/store';
-import { ErrorMessage, useField, useForm } from 'vee-validate';
-import CreateCommentSchema from '../CommentForm/CreateCommentSchema';
+import { defineProps, ref, type PropType } from 'vue';
 import { Icon } from '@iconify/vue';
+import { ErrorMessage, useField, useForm } from 'vee-validate';
+import { useCommentsStore } from '@/store';
+import CreateCommentSchema from '../CommentForm/CreateCommentSchema';
+import { tryCatchWrapper, type ICommentWithAuthor } from '@/shared';
 
 const props = defineProps({
   comment: {
@@ -39,11 +38,13 @@ const onEscape = () => {
 };
 
 const onSubmit = handleSubmit(async (values: { text: string }) => {
-  const result = await commentsStore.patchComment(values, props.comment.id);
-  onEscape();
-  if (result) {
-    commentsStore.updateCommentsFromStore(result.data);
-  }
+  tryCatchWrapper(async () => {
+    const result = await commentsStore.patchComment(values, props.comment.id);
+    onEscape();
+    if (result) {
+      commentsStore.updateCommentsFromStore(result.data);
+    }
+  });
 });
 </script>
 

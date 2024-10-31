@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { OrderType } from '@/shared/types';
-import { useArticleStore } from '@/store';
 import { reactive, ref, toRefs, watchEffect } from 'vue';
+import type { OrderType } from '@/shared';
+import { useArticleStore } from '@/store';
 import { ArticleItem, PaginationComponent } from '@/components';
 
 const articlesStore = useArticleStore();

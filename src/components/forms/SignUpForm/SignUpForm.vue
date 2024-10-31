@@ -37,7 +37,7 @@ const onSubmit = handleSubmit((values: any) => {
     <CustomInput name="password" :type="inputType" v-model="password" />
     <CustomInput name="firstName" type="text" v-model="firstName" />
     <CustomInput name="lastName" type="text" v-model="lastName" />
-    <CustomInput name="bio" type="text" v-model="bio" />
+    <CustomInput name="bio" type="textarea" v-model="bio" />
 
     <div class="flex items-center mb-4">
       <input

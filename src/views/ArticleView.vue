@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import { getInitials, formatDate } from '@/shared/utils';
 import { CommentForm, CommentsComponent } from '@/components';
 import { Icon } from '@iconify/vue';
-import { ReactionTypeEnum } from '@/shared/types';
 import { useArticleInteractions } from '@/composables';
 import ArticleIcons from '@/components/ArticleIcons.vue';
+import { getInitials, formatDate, ReactionTypeEnum } from '@/shared';
+
 const route = useRoute();
 const articleId = ref(route.params.id as string);
 

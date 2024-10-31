@@ -1,5 +1,5 @@
-import { userFieldLengths } from '@/shared/constants';
 import * as yup from 'yup';
+import { userFieldLengths } from '@/shared';
 
 export const UpdateUserSchema = yup.object().shape({
   firstName: yup

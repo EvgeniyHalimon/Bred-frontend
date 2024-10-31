@@ -15,7 +15,8 @@ export const routesByModule = {
   AUTH: {
     LOGIN: `${routes.AUTH}/login`,
     REGISTER: `${routes.AUTH}/register`,
-    REFRESH: `${routes.AUTH}/refresh`
+    REFRESH: `${routes.AUTH}/refresh`,
+    CONFIRM: `${routes.AUTH}/confirm`
   },
   ARTICLES: {
     PATCH: `${routes.ARTICLES}`,
