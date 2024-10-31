@@ -3,7 +3,7 @@ import { Notify, type INotifyOptions } from 'notiflix';
 const { success, failure } = Notify;
 
 const options: INotifyOptions = {
-  timeout: 300000,
+  timeout: 3000,
   pauseOnHover: true,
   position: 'right-bottom',
   borderRadius: '0px',

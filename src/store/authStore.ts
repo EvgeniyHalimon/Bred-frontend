@@ -12,7 +12,7 @@ import { routesByModule } from '../shared/constants';
 import { tryCatchWrapper, showSuccessNotification } from '@/shared';
 
 const {
-  AUTH: { LOGIN, REGISTER }
+  AUTH: { LOGIN, REGISTER, CONFIRM }
 } = routesByModule;
 
 export const useAuthStore = defineStore('auth', () => {
@@ -56,6 +56,15 @@ export const useAuthStore = defineStore('auth', () => {
     refreshToken.value = '';
   };
 
+  const confirm = async (token: string) => {
+    tryCatchWrapper(async () => {
+      const { data } = await axiosWorker().get(`${CONFIRM}/${token}`);
+      if (data) {
+        showSuccessNotification(data.message);
+      }
+    });
+  };
+
   watch([accessToken, refreshToken], ([newAccessToken, newRefreshToken]) => {
     if (newAccessToken && newRefreshToken) {
       saveTokens({ accessToken: newAccessToken, refreshToken: newRefreshToken });
@@ -68,6 +77,7 @@ export const useAuthStore = defineStore('auth', () => {
     isLoggedIn,
     login,
     register,
+    confirm,
     logout
   };
 });
